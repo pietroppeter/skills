@@ -1586,11 +1586,19 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <li>A file: link it on GitHub (<code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/blob/&lt;branch&gt;/&lt;path&gt;</code>), never a bare local path.</li>
 <li>Settings he must change: the direct settings URL (e.g. <code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/settings/pages</code>), with what to pick.</li>
 </ul>
-<h4>Releases: one tap to create</h4>
-<p>When a release is due, do not tell him to create it: give a prefilled link to GitHub's new-release form, with the new tag, title and notes filled in:</p>
-<pre><code class="language-text">https://github.com/&lt;owner&gt;/&lt;repo&gt;/releases/new?tag=v0.4.4&amp;target=main&amp;title=v0.4.4&amp;body=&lt;url-encoded notes&gt;
+<h4>Releases: one tap to create, notes to paste</h4>
+<p>When a release is due, do not tell him to create it. Give him two things:</p>
+<ol>
+<li>
+<p>A link to GitHub's new-release form with only the tag, target and title filled in:</p>
+<pre><code class="language-text">https://github.com/&lt;owner&gt;/&lt;repo&gt;/releases/new?tag=v0.4.4&amp;target=main&amp;title=v0.4.4
 </code></pre>
-<p>He opens it, checks, and presses <em>Publish release</em>. After it exists, link the release page.</p>
+</li>
+<li>
+<p>The release notes in their own <code>```markdown</code> block, so he can copy them into the form.</p>
+</li>
+</ol>
+<p>Do not put the notes in the link: tested 2026-11-08 from the phone, a link with a one-line <code>body</code> works, but one with full notes (about 1100 characters) breaks. After the release exists, link the release page.</p>
 <h4>Show, don't describe</h4>
 <ul>
 <li>A visual change: attach a phone-width (390px) screenshot, before and after when it fixes something.</li>

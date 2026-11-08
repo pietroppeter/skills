@@ -1,7 +1,7 @@
 {
   "name": "phone-first",
   "description": "Pietro works with Claude from his phone: assume it. Publishing pages as claude.ai artifacts he can read there.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Pietro Peterlongo",
     "url": "https://github.com/pietroppeter"
