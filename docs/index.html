@@ -1549,28 +1549,12 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <h2>Catalog</h2>
 <h3 class="plugin">plugin · nimib</h3>
 <ul class="cards">
-<li class="card"><a class="name" href="#nimib-publish">nimib-publish</a> <span class="status personal">personal</span><p>Use when publishing a nimib page as a claude.ai artifact (or anywhere with a content security policy), so its styles and highlighting still load and Pietro can read it on his phone.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-publish/SKILL.md">plugins/nimib/skills/nimib-publish/SKILL.md</a></li>
 <li class="card"><a class="name" href="#nimib-theme">nimib-theme</a> <span class="status personal">personal</span><p>Use when writing or changing the theme (CSS) of a nimib page, so code blocks and outputs stay small, scroll inside their box and are highlighted, also on a phone.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-theme/SKILL.md">plugins/nimib/skills/nimib-theme/SKILL.md</a></li>
 </ul>
-<section class="skill" id="nimib-publish"><p class="kicker">nimib / nimib-publish</p>
-<h3>Publishing a nimib page as a claude.ai artifact</h3>
-<p>Pietro reads nimib pages on his phone, so every nimib page we build is also published as a claude.ai artifact.</p>
-<h4>1. Make the page self-contained</h4>
-<ul>
-<li>Call <code>nb.inlineAssets</code> after <code>nbInit</code> (needs nimib with #267). Artifacts block stylesheets from any CDN except Google Fonts, and scripts from <code>cdn.jsdelivr.net/gh/</code>. Without it there is no water.css, no highlight colours and no highlight.js.</li>
-<li>Google Fonts is fine.</li>
-<li>Remote images do not load: use data: URIs, or publish the images as files of the artifact.</li>
-<li>If the page has its own theme, follow the nimib-theme skill too.</li>
+<h3 class="plugin">plugin · workflow</h3>
+<ul class="cards">
+<li class="card"><a class="name" href="#publish-artifact">publish-artifact</a> <span class="status personal">personal</span><p>Use when you build an HTML page for Pietro (a nimib page, an explainer, docs), to publish it as a claude.ai artifact he can read on his phone, and to keep its link stable.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/workflow/skills/publish-artifact/SKILL.md">plugins/workflow/skills/publish-artifact/SKILL.md</a></li>
 </ul>
-<h4>2. Check</h4>
-<p>Run the phone check from the nimib-theme skill on the built page (<code>../nimib-theme/scripts/phonecheck.js</code> from this folder, or from <a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">the skills repo</a>). It must print only ✓.</p>
-<h4>3. Publish</h4>
-<ul>
-<li>Publish the built HTML as a claude.ai artifact and give Pietro the link, along with any PR.</li>
-<li>When the page changes, republish to the same artifact (same slug), so his link keeps working.</li>
-<li>A page made of several HTML files (an index and posts, say) goes up as one artifact with the same relative paths.</li>
-</ul>
-</section>
 <section class="skill" id="nimib-theme"><p class="kicker">nimib / nimib-theme</p>
 <h3>Theming a nimib page without breaking code blocks</h3>
 <p>Code blocks and outputs are the part of a themed nimib page that breaks, mostly on phones. Why each rule is here, with screenshots: the devlog post <a href="https://pietroppeter.github.io/skills/devlog/2026-11-08-nimib-theme.html">&quot;nimib-theme: does each rule earn its place?&quot;</a>.</p>
@@ -1588,7 +1572,28 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <pre><code class="language-sh">node &lt;this skill's folder&gt;/scripts/phonecheck.js path/to/page.html
 </code></pre>
 <p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, every code block is highlighted. Then look at a 390px-wide screenshot of one long code block.</p>
-<p>If the page will be published as a claude.ai artifact, also follow the nimib-publish skill.</p>
+<p>If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (workflow plugin).</p>
+</section>
+<section class="skill" id="publish-artifact"><p class="kicker">workflow / publish-artifact</p>
+<h3>Publishing a page as a claude.ai artifact</h3>
+<p>Pietro reads what we build on his phone, so every HTML page we make for him (nimib pages, explainers, docs sites) is also published as a claude.ai artifact, even when it also lives in a repo or on GitHub Pages.</p>
+<h4>1. Make the page self-contained</h4>
+<p>Artifacts run under a content security policy:</p>
+<ul>
+<li>Stylesheets from any CDN are blocked, except Google Fonts. Inline them.</li>
+<li>Scripts load only from a few CDNs (cdnjs.cloudflare.com, cdn.jsdelivr.net/npm/, unpkg.com, ...), not from <code>cdn.jsdelivr.net/gh/</code>. Inline the rest.</li>
+<li>Remote images do not load: use data: URIs, or publish the images as files of the artifact.</li>
+<li>nimib pages: call <code>nb.inlineAssets</code> after <code>nbInit</code> (needs nimib with #267). Without it there is no water.css, no highlight colours and no highlight.js.</li>
+</ul>
+<h4>2. Check at phone width</h4>
+<p>Look at a 390px-wide screenshot. For pages with code blocks, run the phone check from the nimib nimib-theme skill (<a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">phonecheck.js</a>); it works on any HTML page and must print only ✓.</p>
+<h4>3. Publish</h4>
+<ul>
+<li>Publish the built HTML as an artifact and give Pietro the link, along with any PR.</li>
+<li>When the page changes, republish to the same artifact (same slug), so his link keeps working. Note the slug somewhere durable (the repo's CLAUDE.md or project memory).</li>
+<li>A site of several HTML files (an index and posts) goes up as one artifact with the same relative paths.</li>
+<li>If the artifact holds files you did not build (another session published there), do not overwrite or remove them without asking.</li>
+</ul>
 </section>
 </main>
 <footer>

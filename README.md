@@ -10,7 +10,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 | Plugin | Skill | Status | What it does |
 |---|---|---|---|
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
-| nimib | [nimib-publish](plugins/nimib/skills/nimib-publish/SKILL.md) | personal | Publish a nimib page as a claude.ai artifact: inline assets, phone check, republish to the same link. |
+| workflow | [publish-artifact](plugins/workflow/skills/publish-artifact/SKILL.md) | personal | Publish any page we build as a claude.ai artifact: self-contained, phone check, republish to the same link. |
 
 Status is `draft` (being written), `personal` (in use from this repo or my account),
 or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).
@@ -19,7 +19,7 @@ or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy
 
 ```
 .claude-plugin/marketplace.json      the marketplace: lists the plugins below
-plugins/<topic>/                      one plugin per topic (nimib, nim, ...)
+plugins/<topic>/                      one plugin per topic (nimib, workflow, ...)
   .claude-plugin/plugin.json
   skills/<skill>/SKILL.md             one folder per skill, exactly one level under skills/
   skills/<skill>/scripts/...          helper scripts the skill uses
@@ -53,7 +53,7 @@ or, on Claude Code 2.1.275 or later, in one step:
   "extraKnownMarketplaces": {
     "pietroppeter-skills": { "source": { "source": "github", "repo": "pietroppeter/skills" } }
   },
-  "enabledPlugins": { "nimib@pietroppeter-skills": true }
+  "enabledPlugins": { "nimib@pietroppeter-skills": true, "workflow@pietroppeter-skills": true }
 }
 ```
 

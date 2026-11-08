@@ -1,0 +1,8 @@
+{
+  "name": "workflow",
+  "description": "How Pietro works with Claude: publishing pages as claude.ai artifacts, reading on the phone.",
+  "version": "0.1.0",
+  "author": { "name": "Pietro Peterlongo", "url": "https://github.com/pietroppeter" },
+  "homepage": "https://github.com/pietroppeter/skills",
+  "license": "MIT"
+}
