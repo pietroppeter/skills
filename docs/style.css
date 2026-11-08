@@ -1,0 +1,45 @@
+/* "Index card" theme: cream paper, a red margin rule, blue ruled cards. */
+:root { --paper:#f7f1e3; --ink:#2b2622; --muted:#6e655c; --rule:#c0392b; --blue:#9fb7d6; --card:#fffdf7; --accent:#1f4e8c; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0 auto; max-width: 760px; padding: 0 18px 48px; background: var(--paper); color: var(--ink);
+  font: 17px/1.6 "Fraunces", Georgia, serif; font-optical-sizing: auto; }
+a { color: var(--accent); }
+h1, h2, h3, h4 { line-height: 1.2; margin: 1.6em 0 .5em; }
+h1 { font-size: 2.3rem; font-weight: 800; margin-top: .6em; letter-spacing: -.01em; }
+h2 { font-size: 1.45rem; font-weight: 800; border-bottom: 2px solid var(--rule); padding-bottom: .15em; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+h4 { font-size: 1rem; font-weight: 600; }
+.masthead { display: flex; align-items: center; gap: 10px; padding: 14px 0 6px; font: 600 13px "JetBrains Mono", monospace; }
+.masthead a { color: var(--muted); text-decoration: none; }
+.tab { background: var(--rule); color: #fff; padding: 2px 10px 3px; border-radius: 6px 6px 0 0; letter-spacing: .08em; text-transform: uppercase; font-size: 11px; }
+code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85em; background: #efe6d2; padding: .05em .3em; border-radius: 3px; }
+body pre { background: #fbf8f0; border: 1px solid #e3d8c0; border-left: 4px solid var(--rule); border-radius: 4px; padding: 10px 12px; overflow-x: auto; }
+body pre > code, body pre.nb-output { font: 12.5px/1.5 "JetBrains Mono", ui-monospace, monospace; background: none; padding: 0; overflow-x: auto; display: block; white-space: pre; }
+.hljs-comment, .hljs-quote { color: #8a8076; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in { color: #a3271a; }
+.hljs-string, .hljs-regexp { color: #2e6b3a; }
+.hljs-number, .hljs-literal, .hljs-symbol { color: #9a5b00; }
+.hljs-type, .hljs-title, .hljs-section { color: var(--accent); }
+.hljs-meta, .hljs-attr, .hljs-attribute, .hljs-variable { color: #7a4f9a; }
+.plugin { font: 600 12px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+.card { background: var(--card); border-radius: 4px; padding: 12px 16px 12px 22px; box-shadow: 0 1px 0 #e0d4ba, 0 6px 14px -10px rgba(60,40,10,.4);
+  background-image: linear-gradient(to right, transparent 10px, var(--rule) 10px, var(--rule) 11px, transparent 11px),
+    repeating-linear-gradient(to bottom, transparent 0 25px, var(--blue) 25px 26px);
+  background-position: 0 0, 0 30px; }
+.card .name { font-weight: 800; font-size: 1.15rem; text-decoration: none; }
+.card p { margin: .2em 0 .4em; }
+.card .src { font: 12px "JetBrains Mono", monospace; color: var(--muted); word-break: break-all; }
+.status { font: 600 11px "JetBrains Mono", monospace; padding: 1px 7px; border-radius: 10px; border: 1px solid; vertical-align: 2px; }
+.status.draft { color: #9a5b00; } .status.personal { color: var(--accent); } .status.promoted { color: #2e6b3a; }
+.skill { margin-top: 2.4em; }
+.kicker { font: 600 12px "JetBrains Mono", monospace; color: var(--rule); text-transform: uppercase; letter-spacing: .08em; margin: 0; border-top: 1px dashed #d3c6a8; padding-top: 1.4em; }
+.skill > h3:first-of-type, .kicker + h3 { margin-top: .3em; }
+footer, .nb-footer { color: var(--muted); font-size: 13px; }
+.shot { margin: 1em 0; } .shot img { width: 100%; max-width: 390px; display: block; margin: 0 auto; border: 1px solid #d9cfb8; border-radius: 6px; }
+.shot figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; display: block; overflow-x: auto; }
+th, td { border-bottom: 1px solid #ddd1b6; padding: 6px 8px; text-align: left; vertical-align: top; }
+.posts { list-style: none; padding: 0; } .posts time { font: 600 12px "JetBrains Mono", monospace; color: var(--muted); margin-right: 6px; }
+:not(pre) > code { overflow-wrap: anywhere; }
