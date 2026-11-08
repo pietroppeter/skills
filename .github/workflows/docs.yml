@@ -1,33 +1,81 @@
-# Build the nimib docs and deploy them to the gh-pages branch (same pattern as nimib's docs.yml).
-# Pages setting: Deploy from a branch -> gh-pages / (root).
+name: Pages
+
+# Builds the docs (index + devlog, with nimib) and runs the phone check; on main, deploys _site/ to
+# GitHub Pages. The HTML is not committed: it is built here, so it always matches the sources.
+# Pages must use "GitHub Actions" as its source (Settings > Pages). Same layout as pietroppeter/tabelline.
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
-permissions:
-  contents: write
+
+concurrency:
+  group: pages-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-24.04 # libpcre3 is not packaged in newer ubuntu
     steps:
       - uses: actions/checkout@v4
+
+      - name: No committed HTML
+        run: |
+          html=$(git ls-files '*.html')
+          if [ -n "$html" ]; then
+            for f in $html; do echo "::error file=$f::generated page committed: CI builds it, remove it with git rm --cached $f"; done
+            exit 1
+          fi
+
       - name: apt install
         run: sudo apt-get install -y libpcre3
+
       - uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.2.4'
+          nim-version: "2.2.4"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: build docs
+
+      # nimib and its dependencies, pinned in docs/deps.sh
+      - uses: actions/cache@v4
+        with:
+          path: docs/deps
+          key: deps-${{ hashFiles('docs/deps.sh') }}
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/nim
+          key: nimcache-2.2.4-${{ hashFiles('docs/**/*.nim', 'docs/**/*.nims', 'docs/deps.sh') }}
+          restore-keys: nimcache-2.2.4-
+
+      - name: Build the pages
         run: sh docs/build.sh
-      - name: phone check
+
+      - name: Phone check (390px)
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
           node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js _site/index.html _site/devlog/*.html
-      - name: deploy on github pages
-        if: github.event_name != 'pull_request'
-        uses: peaceiris/actions-gh-pages@v4
+
+      - name: List site
+        run: find _site -name '*.html' | sort && du -sh _site
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _site
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

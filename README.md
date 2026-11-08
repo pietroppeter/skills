@@ -79,9 +79,9 @@ sh docs/build.sh        # fetch pinned nimib, build index + devlog posts into _s
 node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js _site/index.html _site/devlog/*.html
 ```
 
-Built HTML is not committed. CI (`.github/workflows/docs.yml`, the same pattern as nimib's) builds the docs
-on every PR and push, runs the phone check, and on `main` deploys `_site/` to the `gh-pages` branch
-(Pages: *Deploy from a branch* → `gh-pages` / root): https://pietroppeter.github.io/skills/
+Built HTML is not committed (CI fails if any is). CI (`.github/workflows/docs.yml`, same layout as tabelline's)
+builds the docs on every PR and push, runs the phone check, and on `main` deploys `_site/` with GitHub Pages'
+own Actions deployment (Pages source: *GitHub Actions*): https://pietroppeter.github.io/skills/
 
 The **devlog** (`docs/devlog/`) has one explainer post per skill: why each rule is there, with evidence.
 A post is a nimib file that sets `nb.doc.filename` to `YYYY-MM-DD-<slug>.html`; the index lists it automatically.
