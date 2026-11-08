@@ -92,8 +92,8 @@ A read of the five skills side by side found the older nimib reference still tea
 whose kind was a string, against the enum that nimib-blocks asks for; it now uses the enum and
 points to nimib-blocks for the how-to. The nimib skill now says that nimib-theme builds with an
 unreleased nimib (#267) and what to do on 0.4.3, and its verify step names `phonecheck.js` and
-`drift.nim` next to `nbcheck.py`. Module names stay free: Italian in nimib-blocks, English in
-the nimib examples.
+`drift.nim` next to `nbcheck.py`. All the skills now name the modules `style.nim` and `blocks.nim`, in English, as their
+examples do.
 
 ## How to run the tests
 

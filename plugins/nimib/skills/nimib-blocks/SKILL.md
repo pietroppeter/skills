@@ -20,8 +20,7 @@ Before you write a tag, a `style=` or a colour in a page:
    in `nbText` as Markdown.
 2. **Is there a nimib block?** `nbText`, `nbCode`, `nbCodeSkip`, `nbImage`, `nbFile`, `nbCapture`,
    `nbJsFromCode`, `nbShow`, … (and the project's table or plot blocks, such as `nbTable`).
-3. **Is there one in the project's blocks module?** Look for it (often `blocchi.nim`, `my.nim`,
-   `blocks.nim`; search for `newNbBlock`). Use it.
+3. **Is there one in the project's blocks module?** Look for it (often `blocks.nim`; search for `newNbBlock`). Use it.
 4. **Will it be needed again?** Then make a block now, the second time it is needed, not the
    third: see [references/making-blocks.md](references/making-blocks.md).
 5. **Only then `nbRawHtml`**, for a true one-off, with a comment that says why it is not a block.
@@ -30,14 +29,10 @@ Before you write a tag, a `style=` or a colour in a page:
 
 ## Where things live
 
-The module names are free (the examples here are Italian, from the tabelline docs; the nimib
-skill's examples use `lib/style.nim` and `lib/blocks.nim`): what matters is one of each.
-
-
-- **The style module** (e.g. `stile.nim`, `theme.nim`): every styling decision. Colours as
+- **The style module** (`style.nim`): every styling decision. Colours as
   named tokens (constants or CSS variables such as `--primary`, `--warning`), the CSS of the
   theme generated from them, the fonts. No CSS and no colour anywhere else.
-- **The blocks module** (e.g. `blocchi.nim`, `my.nim`): every custom block, each with a doc
+- **The blocks module** (`blocks.nim`): every custom block, each with a doc
   comment. Its `toHtml` writes classes, never inline styles; the classes are styled in the style
   module.
 - **Pages**: Markdown, nimib's blocks and the project's blocks. Data a page shows goes in data
@@ -52,8 +47,8 @@ When a block comes in kinds (a note that is info, done or a warning), make the k
 not a string: a typo then fails to compile, and the CSS class is derived from it in one place.
 
 ```nim
-type NotaKind* = enum nkPlain = "", nkInfo = "info", nkWarning = "warning"
-# a field `tipo: NotaKind`; in toHtml: &"""<div class="nota {blk.tipo}">"""  ($ of the enum is the class)
+type NoteKind* = enum nkPlain = "", nkInfo = "info", nkWarning = "warning"
+# a field `level: NoteKind`; in toHtml: &"""<div class="note {blk.level}">"""  ($ of the enum is the class)
 ```
 
 ## Check your own drift
@@ -62,7 +57,7 @@ Run the drift counter on the pages you touched, allowing the style and blocks mo
 
 ```sh
 # from the project's root
-nim r <this skill's folder>/scripts/drift.nim --allow:docs/stile.nim --allow:docs/blocchi.nim docs/
+nim r <this skill's folder>/scripts/drift.nim --allow:docs/style.nim --allow:docs/blocks.nim docs/
 ```
 
 It lists, per file, `nbRawHtml` calls, `nbText` blocks holding HTML tags, `<style>`, `<script>`,

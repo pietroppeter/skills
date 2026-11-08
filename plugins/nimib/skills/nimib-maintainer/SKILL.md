@@ -27,7 +27,7 @@ re-check them (`git log`, the `.nimble` files, the Actions tab) before acting.
 | `nimib-land/nimib.py` | experimental Python bridge (nimpy + nimporter) | nimib 0.3 internals, does not build on 0.4 | nimib.land/nimib.py |
 | `nimib-land/nimib-land.github.io` | org landing page, CNAME `nimib.land` (so every org repo site is `nimib.land/<repo>/`) | stub | nimib.land |
 | `pietroppeter/adventofnim` | AoC solutions as nimib docs | nimib 0.2/0.3 era | pietroppeter.github.io/adventofnim |
-| `pietroppeter/tabelline` | great tables for Nim, docs built with nimib (`docs/stile.nim` + `docs/blocchi.nim`, drift check in CI) | nimib 0.4 | pietroppeter.github.io/tabelline |
+| `pietroppeter/tabelline` | great tables for Nim, docs built with nimib | nimib 0.4 | pietroppeter.github.io/tabelline |
 | `pietroppeter/diagrammari` | Pele diagrams for nimib (`import mari`) | nimib 0.4 | pietroppeter.github.io/diagrammari |
 | `pietroppeter/skills` | these agent skills (plugin `nimib`) | | pietroppeter.github.io/skills |
 
