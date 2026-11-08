@@ -10,6 +10,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 | Plugin | Skill | Status | What it does |
 |---|---|---|---|
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme and publish nimib pages so code blocks stay small, scroll inside their box and are highlighted, checked at phone width. |
+| nimib | [nimib-blocks](plugins/nimib/skills/nimib-blocks/SKILL.md) | draft | Write nimib pages with blocks instead of HTML: when to make a custom block, how, and where styles and colours go; `drift.nim` counts what drifted. |
 
 Status is `draft` (being written), `personal` (in use from this repo or my account),
 or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).

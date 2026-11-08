@@ -1545,12 +1545,70 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <h2>Devlog</h2>
 <ul class="posts">
 <li><time>2026-11-08</time> <a href="devlog/2026-11-08-nimib-theme.html">nimib-theme: does each rule earn its place?</a></li>
+<li><time>2026-11-08</time> <a href="devlog/2026-11-08-nimib-blocks.html">nimib-blocks: blocks, not HTML</a></li>
 </ul>
 <h2>Catalog</h2>
 <h3 class="plugin">plugin · nimib</h3>
 <ul class="cards">
+<li class="card"><a class="name" href="#nimib-blocks">nimib-blocks</a> <span class="status draft">draft</span><p>Use when writing or changing a nimib page and about to put HTML, CSS or a colour in it, so repeated HTML becomes a custom block and every style and colour lives in a style module.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-blocks/SKILL.md">plugins/nimib/skills/nimib-blocks/SKILL.md</a></li>
 <li class="card"><a class="name" href="#nimib-theme">nimib-theme</a> <span class="status personal">personal</span><p>Use when writing or changing a nimib page theme or publishing a nimib page, so code blocks stay small, scroll inside their box and are highlighted.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-theme/SKILL.md">plugins/nimib/skills/nimib-theme/SKILL.md</a></li>
 </ul>
+<section class="skill" id="nimib-blocks"><p class="kicker">nimib / nimib-blocks</p>
+<h3>nimib: blocks, not HTML</h3>
+<p>nimib exists so that a page says <em>what</em> it shows, with blocks made for it, and not <em>how</em> it is
+drawn. An agent reaches for HTML because it knows HTML better than nimib's block API, and a
+project drifts: <code>&lt;div&gt;</code> in <code>nbText</code>, <code>nbRawHtml</code> everywhere, a <code>&lt;style&gt;</code> and hex colours in every
+page. This skill keeps the default the other way.</p>
+<h4>The decision, in order</h4>
+<p>Before you write a tag, a <code>style=</code> or a colour in a page:</p>
+<ol>
+<li><strong>Is it Markdown?</strong> Headings, lists, links, emphasis, tables of text, code fences: write them
+in <code>nbText</code> as Markdown.</li>
+<li><strong>Is there a nimib block?</strong> <code>nbText</code>, <code>nbCode</code>, <code>nbCodeSkip</code>, <code>nbImage</code>, <code>nbFile</code>, <code>nbCapture</code>,
+<code>nbJsFromCode</code>, <code>nbShow</code>, … (and the project's table or plot blocks, such as <code>nbTable</code>).</li>
+<li><strong>Is there one in the project's blocks module?</strong> Look for it (often <code>blocchi.nim</code>, <code>my.nim</code>,
+<code>blocks.nim</code>; search for <code>newNbBlock</code>). Use it.</li>
+<li><strong>Will it be needed again?</strong> Then make a block now, the second time it is needed, not the
+third: see <a href="references/making-blocks.md">references/making-blocks.md</a>.</li>
+<li><strong>Only then <code>nbRawHtml</code></strong>, for a true one-off, with a comment that says why it is not a block.</li>
+</ol>
+<h4>Where things live</h4>
+<ul>
+<li><strong>The style module</strong> (e.g. <code>stile.nim</code>, <code>theme.nim</code>): every styling decision. Colours as
+named tokens (constants or CSS variables such as <code>--primary</code>, <code>--warning</code>), the CSS of the
+theme generated from them, the fonts. No CSS and no colour anywhere else.</li>
+<li><strong>The blocks module</strong> (e.g. <code>blocchi.nim</code>, <code>my.nim</code>): every custom block, each with a doc
+comment. Its <code>toHtml</code> writes classes, never inline styles; the classes are styled in the style
+module.</li>
+<li><strong>Pages</strong>: Markdown, nimib's blocks and the project's blocks. Data a page shows goes in data
+modules, apart from how it is shown.</li>
+</ul>
+<p>A block that needs a new look gets a class and its CSS goes in the style module, using tokens.
+A page that needs a new colour needs a new token, not a hex value.</p>
+<h4>Kinds, not strings</h4>
+<p>When a block comes in kinds (a note that is info, done or a warning), make the kind an <code>enum</code>,
+not a string: a typo then fails to compile, and the CSS class is derived from it in one place.</p>
+<pre><code class="nohighlight nim hljs"><span class="hljs-keyword">type</span> <span class="hljs-type">NotaKind</span>* = <span class="hljs-keyword">enum</span> nkPlain = <span class="hljs-string">&quot;&quot;</span>, nkInfo = <span class="hljs-string">&quot;info&quot;</span>, nkWarning = <span class="hljs-string">&quot;warning&quot;</span>
+<span class="hljs-comment"># a field `tipo: NotaKind`; in toHtml: &amp;&quot;&quot;&quot;&lt;div class=&quot;nota {blk.tipo}&quot;&gt;&quot;&quot;&quot;  ($ of the enum is the class)</span></code></pre>
+<h4>Check your own drift</h4>
+<p>Run the drift counter on the pages you touched, allowing the style and blocks modules:</p>
+<pre><code class="language-sh"># from the project's root
+nim r &lt;this skill's folder&gt;/scripts/drift.nim --allow:docs/stile.nim --allow:docs/blocchi.nim docs/
+</code></pre>
+<p>It lists, per file, <code>nbRawHtml</code> calls, <code>nbText</code> blocks holding HTML tags, <code>&lt;style&gt;</code>, <code>&lt;script&gt;</code>,
+inline <code>style=&quot;</code> and distinct <code>#RRGGBB</code> colours. The number outside the allowed files must not
+go up in your change. <code>--fail</code> makes it exit with 1 on any drift, for CI once a project is
+migrated.</p>
+<h4>Before you finish</h4>
+<ul>
+<li>No new HTML tag in <code>nbText</code>, no new <code>nbRawHtml</code> without a comment, no <code>&lt;style&gt;</code>, no hex colour
+in a page.</li>
+<li>Every new block is in the blocks module, documented, and used at least once.</li>
+<li>Its CSS is in the style module and uses tokens; check it in every look the project has (light
+and dark, or the project's themes).</li>
+<li>Build the page and look at it (a phone-width screenshot if the project has a rule for it).</li>
+</ul>
+</section>
 <section class="skill" id="nimib-theme"><p class="kicker">nimib / nimib-theme</p>
 <h3>Theming a nimib page without breaking code blocks</h3>
 <p>Code blocks are the part of a themed nimib page that keeps breaking, mostly on phones. Follow these rules whenever you write or change a theme, then run the check before you publish.</p>
