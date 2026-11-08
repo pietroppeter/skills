@@ -1,2 +1,6 @@
 docs/deps/
 docs/deps-old/
+_site/
+node_modules/
+docs/*.html
+docs/devlog/*.html

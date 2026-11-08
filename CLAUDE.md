@@ -7,8 +7,8 @@ Pietro's personal Claude skills. He works mostly from his phone: changes arrive 
 - SKILL.md frontmatter: `name` (= folder name), `description` (when to use it, one sentence), and
   `metadata.status`: `draft`, `personal`, or `promoted: <owner/repo>`.
 - When adding or changing a skill: update the table in `README.md`, bump the plugin `version` in its `plugin.json`,
-  rebuild the docs (`sh docs/deps.sh && nim r docs/index.nim`), run `phonecheck.js` on `docs/index.html`
-  (must print only ✓), and run `claude plugin validate .` if the CLI is available.
+  rebuild the docs (`sh docs/build.sh`), run `phonecheck.js` on `_site/index.html _site/devlog/*.html`
+  (must print only ✓; CI runs it too), and run `claude plugin validate .` if the CLI is available.
 - New skill, or a real change to one: write or update its devlog post in `docs/devlog/` (why each rule exists, with evidence).
-- Publish the rebuilt `docs/index.html` plus `docs/devlog/*.html` (same relative paths) as one claude.ai artifact (slug e889b2b5-f103-4694-998b-a5a9794462c3) and republish to the same slug on changes.
+- Built HTML is not committed (CI deploys to gh-pages). Publish `_site/index.html` plus `_site/devlog/*.html` (same relative paths) as one claude.ai artifact (slug e889b2b5-f103-4694-998b-a5a9794462c3) and republish to the same slug on changes.
 - Write "nimib" (voice dictation turns it into IMIB/NIMIB).
