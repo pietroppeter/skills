@@ -86,6 +86,15 @@ Two graded cases gained a check that the page source holds no HTML, `<style>` or
 block, `nbRawHtml` included, and `interactive.nim` needs the elements its JavaScript fills in.
 Each of them carries a comment that says why.
 
+## One rule across five skills
+
+A read of the five skills side by side found the older nimib reference still teaching a callout
+whose kind was a string, against the enum that nimib-blocks asks for; it now uses the enum and
+points to nimib-blocks for the how-to. The nimib skill now says that nimib-theme builds with an
+unreleased nimib (#267) and what to do on 0.4.3, and its verify step names `phonecheck.js` and
+`drift.nim` next to `nbcheck.py`. Module names stay free: Italian in nimib-blocks, English in
+the nimib examples.
+
 ## How to run the tests
 
 The commands are in the

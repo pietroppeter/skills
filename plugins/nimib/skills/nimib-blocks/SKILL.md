@@ -25,8 +25,14 @@ Before you write a tag, a `style=` or a colour in a page:
 4. **Will it be needed again?** Then make a block now, the second time it is needed, not the
    third: see [references/making-blocks.md](references/making-blocks.md).
 5. **Only then `nbRawHtml`**, for a true one-off, with a comment that says why it is not a block.
+   The common legitimate case: the empty elements an `nbJsFromCode` widget fills in (a `<canvas>`,
+   a `<div id="out">`), when the widget is used once.
 
 ## Where things live
+
+The module names are free (the examples here are Italian, from the tabelline docs; the nimib
+skill's examples use `lib/style.nim` and `lib/blocks.nim`): what matters is one of each.
+
 
 - **The style module** (e.g. `stile.nim`, `theme.nim`): every styling decision. Colours as
   named tokens (constants or CSS variables such as `--primary`, `--warning`), the CSS of the

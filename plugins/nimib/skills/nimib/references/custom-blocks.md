@@ -30,30 +30,36 @@ to stay short: in a project it goes in the style module, as in
 
 ## 2. A simple block with `newNbBlock`
 
+The step-by-step guide (when to make a block, leaf and container blocks, where
+the CSS goes) is `nimib-blocks/references/making-blocks.md`. This section is
+the API behind it. The same block, complete, is in `examples/lib/blocks.nim`.
+
 ```nim
 import std/strformat
 import nimib
 
+type CalloutKind* = enum ckNote = "note", ckWarning = "warning", ckDanger = "danger"
+
 newNbBlock(NbCallout):          # defines type NbCallout, newNbCallout(...), nbCalloutToHtml
-  level: string                 # fields: name: type
+  level: CalloutKind            # fields: name: type (an enum: a typo fails to compile)
   message: string
   toHtml:                       # body has `blk: NbCallout` and `nb: Nb` in scope; returns string
-    &"""<div class="callout callout-{blk.level}"><strong>{blk.level}:</strong> {blk.message}</div>"""
+    &"""<div class="callout {blk.level}"><strong>{blk.level}:</strong> {blk.message}</div>"""
 
-func callout*(nb: var Nb, level, message: string) =   # method form: nb.callout(...)
+func callout*(nb: var Nb, message: string, level = ckNote) =   # method form: nb.callout(...)
   nb.add newNbCallout(level = level, message = message)
 
-template nbCallout*(level, message: string) =   # the user-facing template, uses the injected `nb`
-  nb.callout(level, message)
+template nbCallout*(message: string, level = ckNote) =   # the user-facing template, uses the injected `nb`
+  nb.callout(message, level)
 ```
 
 This mirrors how nimib defines its own blocks (`func image*(nb: var Nb, ...)`
 plus `template nbImage*`). Putting the logic in a proc/func avoids a classic
 template trap: **template parameters are substituted everywhere in the
 template body**, including the left side of named arguments and field
-accesses. `template nbCallout(level, message: string) = nb.add newNbCallout(level = level, ...)`
-expands to `newNbCallout("warning" = "warning", ...)` and fails with
-`identifier expected, but found '"warning"'`. When you must use a template
+accesses. `template nbCallout(message: string, level: CalloutKind) = nb.add newNbCallout(level = level, ...)`
+expands to `newNbCallout(ckWarning = ckWarning, ...)` and fails with
+an `identifier expected` error. When you must use a template
 (blocks with a `body`, like containers), give parameters names that differ
 from the fields (`tsummary`, `tlevel`).
 
@@ -61,9 +67,9 @@ from the fields (`tsummary`, `tlevel`).
 
 ```nim
 type NbCallout* = ref object of NbBlock
-  level*: string
+  level*: CalloutKind
   message*: string
-proc newNbCallout*(level: string = "", message: string = ""): NbCallout   # sets kind = "NbCallout"
+proc newNbCallout*(level: CalloutKind = default(CalloutKind), message: string = ""): NbCallout   # sets kind = "NbCallout"
 proc nbcalloutToHtml*(blk: NbBlock, nb: Nb): string
 nbToHtml.funcs["NbCallout"] = nbcalloutToHtml
 addNbBlockToJson(NbCallout)     # registers the type for the JSON backend
@@ -131,7 +137,7 @@ helper template).
 ```nim
 func nbCalloutToMd(blk: NbBlock, nb: Nb): string =
   let blk = blk.NbCallout
-  "> **" & blk.level & ":** " & blk.message
+  "> **" & $blk.level & ":** " & blk.message
 nbToMd.funcs["NbCallout"] = nbCalloutToMd
 ```
 

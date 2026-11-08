@@ -14,6 +14,9 @@ the rest of the file, runs when the program runs, and its `echo` output is
 captured and shown under the code.
 
 This skill targets **nimib 0.4.x** (current: 0.4.3, Nim >= 2.0 recommended).
+The nimib-theme skill builds with an unreleased nimib (PR #267, better style
+rules for code on phones) and says what to write instead on 0.4.3; everything
+here works on 0.4.3.
 nimib 0.4 rewrote the block and rendering system: there are no mustache
 templates any more, and the README section on custom blocks still describes the
 old 0.3 API (`newNbSlimBlock`, `newNbCodeBlock`, `nb.partials`) that **no longer
@@ -51,7 +54,9 @@ are the ground truth.
    mistakes (markdown that became a code block, raw `**`/`#` left in text, empty
    outputs, the default title, missing local images). Fix what it flags and
    rebuild. A document that compiles can still render badly; the check is what
-   tells you.
+   tells you. A page that will be published or read on a phone also gets
+   nimib-theme's `phonecheck.js`, and a page you wrote gets nimib-blocks'
+   `drift.nim` (no HTML, CSS or colours outside the blocks and style modules).
 
 ## Skeleton
 

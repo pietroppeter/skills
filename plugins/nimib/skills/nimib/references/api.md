@@ -93,7 +93,7 @@ template nbDiv*(body: untyped)
 proc relPath*(path: AbsoluteFile | AbsoluteDir): string  # path relative to homeDir (template)
 ```
 
-`nbDiv` is a container: blocks created inside its body are nested in it.
+`nbDiv` is a container: blocks created inside its body are nested in it. Pass classes and leave `styles` empty (nimib-blocks: styles live in the style module); a wrapper you repeat should be a container block.
 
 Python (only when `nimpy` is installed): `nbInitPython()` then
 `nbPython: hlPy"""print(1)"""` runs Python code and captures its output.
