@@ -1,0 +1,14 @@
+{
+  "name": "pietroppeter-skills",
+  "owner": { "name": "Pietro Peterlongo", "url": "https://github.com/pietroppeter" },
+  "metadata": {
+    "description": "Pietro's personal Claude skills, one plugin per topic."
+  },
+  "plugins": [
+    {
+      "name": "nimib",
+      "source": "./plugins/nimib",
+      "description": "Skills for writing, theming and publishing nimib pages."
+    }
+  ]
+}

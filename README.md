@@ -1,2 +1,71 @@
 # skills
-how
+
+Pietro's personal [Claude skills](https://code.claude.com/docs/en/skills), kept in one place
+so they are versioned and can be promoted into project repos when they're ready.
+
+Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietroppeter.github.io/skills/
+
+## Skills
+
+| Plugin | Skill | Status | What it does |
+|---|---|---|---|
+| nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme and publish nimib pages so code blocks stay small, scroll inside their box and are highlighted, checked at phone width. |
+
+Status is `draft` (being written), `personal` (in use from this repo or my account),
+or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).
+
+## Layout
+
+```
+.claude-plugin/marketplace.json      the marketplace: lists the plugins below
+plugins/<topic>/                      one plugin per topic (nimib, nim, ...)
+  .claude-plugin/plugin.json
+  skills/<skill>/SKILL.md             one folder per skill, exactly one level under skills/
+  skills/<skill>/scripts/...          helper scripts the skill uses
+docs/                                 nimib sources of the docs site (index.nim -> index.html)
+```
+
+## Using these skills
+
+**claude.ai account (works everywhere, including the phone app and cloud sessions).**
+Ask Claude to post a "save skill" card from a `SKILL.md` here and tap Save,
+or upload the skill folder as a zip in claude.ai Settings → Capabilities → Skills.
+Re-save after the skill changes here.
+
+**Claude Code, as a plugin.**
+
+```
+/plugin marketplace add pietroppeter/skills
+/plugin install nimib@pietroppeter-skills
+```
+
+or, on Claude Code 2.1.275 or later, in one step:
+
+```
+/plugin install nimib --marketplace pietroppeter/skills
+```
+
+**One project repo, without copying.** Add to that repo's `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "pietroppeter-skills": { "source": { "source": "github", "repo": "pietroppeter/skills" } }
+  },
+  "enabledPlugins": { "nimib@pietroppeter-skills": true }
+}
+```
+
+**Promote into a project repo.** Copy `plugins/<topic>/skills/<skill>/` to
+`<repo>/.claude/skills/<skill>/` in a PR, then set the skill's status here to `promoted: <repo>`.
+Keep editing it here and re-copy, or hand ownership to the project repo and say so in the status.
+
+## Docs
+
+```sh
+sh docs/deps.sh          # fetch nimib and its deps at pinned commits into docs/deps (not committed)
+nim r docs/index.nim     # writes docs/index.html: a catalog read from every SKILL.md
+node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js docs/index.html
+```
+
+GitHub Pages serves `docs/` from `main`.
