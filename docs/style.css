@@ -37,3 +37,8 @@ body pre > code, body pre.nb-output { font: 12.5px/1.5 "JetBrains Mono", ui-mono
 .kicker { font: 600 12px "JetBrains Mono", monospace; color: var(--rule); text-transform: uppercase; letter-spacing: .08em; margin: 0; border-top: 1px dashed #d3c6a8; padding-top: 1.4em; }
 .skill > h3:first-of-type, .kicker + h3 { margin-top: .3em; }
 footer, .nb-footer { color: var(--muted); font-size: 13px; }
+.shot { margin: 1em 0; } .shot img { width: 100%; max-width: 390px; display: block; margin: 0 auto; border: 1px solid #d9cfb8; border-radius: 6px; }
+.shot figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; display: block; overflow-x: auto; }
+th, td { border-bottom: 1px solid #ddd1b6; padding: 6px 8px; text-align: left; vertical-align: top; }
+.posts { list-style: none; padding: 0; } .posts time { font: 600 12px "JetBrains Mono", monospace; color: var(--muted); margin-right: 6px; }

@@ -22,6 +22,7 @@ if (!files.length) files = fs.readdirSync(root).map(d => path.join(root, d, 'ind
   const browser = await chromium.launch();
   let bad = 0;
   for (const f of files) {
+    if (!fs.existsSync(f)) { bad++; console.log(`✗ ${f}\n    no such file`); continue; }
     const page = await browser.newPage({viewport: {width: 390, height: 844}});
     await page.goto('file://' + path.resolve(f), {waitUntil: 'load'}).catch(() => {});
     await page.waitForTimeout(300);

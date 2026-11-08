@@ -9,5 +9,6 @@ Pietro's personal Claude skills. He works mostly from his phone: changes arrive 
 - When adding or changing a skill: update the table in `README.md`, bump the plugin `version` in its `plugin.json`,
   rebuild the docs (`sh docs/deps.sh && nim r docs/index.nim`), run `phonecheck.js` on `docs/index.html`
   (must print only ✓), and run `claude plugin validate .` if the CLI is available.
-- Publish the rebuilt `docs/index.html` as a claude.ai artifact and republish to the same slug on changes.
+- New skill, or a real change to one: write or update its devlog post in `docs/devlog/` (why each rule exists, with evidence).
+- Publish the rebuilt `docs/index.html` plus `docs/devlog/*.html` (same relative paths) as one claude.ai artifact (slug e889b2b5-f103-4694-998b-a5a9794462c3) and republish to the same slug on changes.
 - Write "nimib" (voice dictation turns it into IMIB/NIMIB).

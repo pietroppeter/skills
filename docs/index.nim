@@ -1,27 +1,16 @@
 ## Docs for github.com/pietroppeter/skills: a catalog read from every SKILL.md.
 ## Build from the repo root:  sh docs/deps.sh && nim r docs/index.nim   (writes docs/index.html)
-import std/[os, strutils, algorithm, json]
+import std/[os, strutils, algorithm]
 import nimib
 
-const
-  repoUrl = "https://github.com/pietroppeter/skills"
-  styleCss = staticRead("style.css")
+import site
+
 let root = currentSourcePath().parentDir.parentDir
 
 nbInit
 nb.doc.filename = root / "docs" / "index.html"
 nb.title = "Pietro's skills"
-nb.inlineAssets  # artifacts block CDN assets: ship highlight.js inside the page
-
-nb.doc.context["stylesheet"] = %("""
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>""" & styleCss & "</style>")
-nb.doc.context["highlight"] = %""   # style.css colours the hljs-* classes
-nb.backend.partials["header"] = proc (blk: JsonNode, nb: Nb): string =
-  """<header class="masthead"><span class="tab">index</span><a href="""" & repoUrl &
-  """">pietroppeter/skills</a></header>"""
+nb.useSiteTheme(home = repoUrl)
 
 type Skill = object
   plugin, name, description, status, body, path: string
@@ -75,6 +64,20 @@ nbText: """
 Status: **draft** is being written, **personal** is in use from here or my account,
 **promoted** means a copy lives in a project repo.
 """
+
+var devlog = "<h2>Devlog</h2>\n<ul class=\"posts\">\n"
+var posts: seq[(string, string)]  # (output html name, title); posts name their output YYYY-MM-DD-slug.html
+for f in walkFiles(root / "docs" / "devlog" / "*.nim"):
+  var html, title = ""
+  for line in readFile(f).splitLines:
+    if line.startsWith("nb.title = "): title = line["nb.title = ".len..^1].strip(chars = {'"', ' '})
+    if line.startsWith("nb.doc.filename = "): html = line.split('"')[^2]
+  if html != "": posts.add (html, title)
+posts.sort(Descending)
+for (html, title) in posts:
+  devlog.add "<li><time>" & html[0..9] & "</time> <a href=\"devlog/" & html & "\">" & title & "</a></li>\n"
+devlog.add "</ul>\n"
+nbRawHtml: devlog
 
 var catalog = "<h2>Catalog</h2>\n"
 var lastPlugin = ""

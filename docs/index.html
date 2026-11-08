@@ -47,6 +47,11 @@ body pre > code, body pre.nb-output { font: 12.5px/1.5 "JetBrains Mono", ui-mono
 .kicker { font: 600 12px "JetBrains Mono", monospace; color: var(--rule); text-transform: uppercase; letter-spacing: .08em; margin: 0; border-top: 1px dashed #d3c6a8; padding-top: 1.4em; }
 .skill > h3:first-of-type, .kicker + h3 { margin-top: .3em; }
 footer, .nb-footer { color: var(--muted); font-size: 13px; }
+.shot { margin: 1em 0; } .shot img { width: 100%; max-width: 390px; display: block; margin: 0 auto; border: 1px solid #d9cfb8; border-radius: 6px; }
+.shot figcaption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; display: block; overflow-x: auto; }
+th, td { border-bottom: 1px solid #ddd1b6; padding: 6px 8px; text-align: left; vertical-align: top; }
+.posts { list-style: none; padding: 0; } .posts time { font: 600 12px "JetBrains Mono", monospace; color: var(--muted); margin-right: 6px; }
 </style>
   
   <style>
@@ -1537,6 +1542,10 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 </ul>
 <p>Status: <strong>draft</strong> is being written, <strong>personal</strong> is in use from here or my account,
 <strong>promoted</strong> means a copy lives in a project repo.</p>
+<h2>Devlog</h2>
+<ul class="posts">
+<li><time>2026-11-08</time> <a href="devlog/2026-11-08-nimib-theme.html">nimib-theme: does each rule earn its place?</a></li>
+</ul>
 <h2>Catalog</h2>
 <h3 class="plugin">plugin · nimib</h3>
 <ul class="cards">
@@ -1585,28 +1594,17 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <section id="source">
 <pre><code class="nohighlight nim hljs"><span class="hljs-comment">## Docs for github.com/pietroppeter/skills: a catalog read from every SKILL.md.</span>
 <span class="hljs-comment">## Build from the repo root:  sh docs/deps.sh &amp;&amp; nim r docs/index.nim   (writes docs/index.html)</span>
-<span class="hljs-keyword">import</span> std/[os, strutils, algorithm, json]
+<span class="hljs-keyword">import</span> std/[os, strutils, algorithm]
 <span class="hljs-keyword">import</span> nimib
 
-<span class="hljs-keyword">const</span>
-  repoUrl = <span class="hljs-string">&quot;https://github.com/pietroppeter/skills&quot;</span>
-  styleCss = staticRead(<span class="hljs-string">&quot;style.css&quot;</span>)
+<span class="hljs-keyword">import</span> site
+
 <span class="hljs-keyword">let</span> root = currentSourcePath().parentDir.parentDir
 
 nbInit
 nb.doc.filename = root / <span class="hljs-string">&quot;docs&quot;</span> / <span class="hljs-string">&quot;index.html&quot;</span>
 nb.title = <span class="hljs-string">&quot;Pietro's skills&quot;</span>
-nb.inlineAssets  <span class="hljs-comment"># artifacts block CDN assets: ship highlight.js inside the page</span>
-
-nb.doc.context[<span class="hljs-string">&quot;stylesheet&quot;</span>] = %(<span class="hljs-string">&quot;&quot;&quot;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
-&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
-&lt;style&gt;&quot;&quot;&quot;</span> &amp; styleCss &amp; <span class="hljs-string">&quot;&lt;/style&gt;&quot;</span>)
-nb.doc.context[<span class="hljs-string">&quot;highlight&quot;</span>] = %<span class="hljs-string">&quot;&quot;</span>   <span class="hljs-comment"># style.css colours the hljs-* classes</span>
-nb.backend.partials[<span class="hljs-string">&quot;header&quot;</span>] = <span class="hljs-keyword">proc</span> (blk: <span class="hljs-type">JsonNode</span>, nb: <span class="hljs-type">Nb</span>): <span class="hljs-built_in">string</span> =
-  <span class="hljs-string">&quot;&quot;&quot;&lt;header class=&quot;masthead&quot;&gt;&lt;span class=&quot;tab&quot;&gt;index&lt;/span&gt;&lt;a href=&quot;&quot;&quot;&quot;</span> &amp; repoUrl &amp;
-  <span class="hljs-string">&quot;&quot;&quot;&quot;&gt;pietroppeter/skills&lt;/a&gt;&lt;/header&gt;&quot;&quot;&quot;</span>
+nb.useSiteTheme(home = repoUrl)
 
 <span class="hljs-keyword">type</span> <span class="hljs-type">Skill</span> = <span class="hljs-keyword">object</span>
   plugin, name, description, status, body, path: <span class="hljs-built_in">string</span>
@@ -1660,6 +1658,20 @@ nbText: <span class="hljs-string">&quot;&quot;&quot;
 Status: **draft** is being written, **personal** is in use from here or my account,
 **promoted** means a copy lives in a project repo.
 &quot;&quot;&quot;</span>
+
+<span class="hljs-keyword">var</span> devlog = <span class="hljs-string">&quot;&lt;h2&gt;Devlog&lt;/h2&gt;</span><span class="hljs-meta">\n</span><span class="hljs-string">&lt;ul class=</span><span class="hljs-meta">\&quot;</span><span class="hljs-string">posts</span><span class="hljs-meta">\&quot;</span><span class="hljs-string">&gt;</span><span class="hljs-meta">\n</span><span class="hljs-string">&quot;</span>
+<span class="hljs-keyword">var</span> posts: <span class="hljs-built_in">seq</span>[(<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>)]  <span class="hljs-comment"># (output html name, title); posts name their output YYYY-MM-DD-slug.html</span>
+<span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> walkFiles(root / <span class="hljs-string">&quot;docs&quot;</span> / <span class="hljs-string">&quot;devlog&quot;</span> / <span class="hljs-string">&quot;*.nim&quot;</span>):
+  <span class="hljs-keyword">var</span> html, title = <span class="hljs-string">&quot;&quot;</span>
+  <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> readFile(f).splitLines:
+    <span class="hljs-keyword">if</span> line.startsWith(<span class="hljs-string">&quot;nb.title = &quot;</span>): title = line[<span class="hljs-string">&quot;nb.title = &quot;</span>.len..^<span class="hljs-number">1</span>].strip(chars = {<span class="hljs-string">'&quot;'</span>, <span class="hljs-string">' '</span>})
+    <span class="hljs-keyword">if</span> line.startsWith(<span class="hljs-string">&quot;nb.doc.filename = &quot;</span>): html = line.split(<span class="hljs-string">'&quot;'</span>)[^<span class="hljs-number">2</span>]
+  <span class="hljs-keyword">if</span> html != <span class="hljs-string">&quot;&quot;</span>: posts.add (html, title)
+posts.sort(<span class="hljs-type">Descending</span>)
+<span class="hljs-keyword">for</span> (html, title) <span class="hljs-keyword">in</span> posts:
+  devlog.add <span class="hljs-string">&quot;&lt;li&gt;&lt;time&gt;&quot;</span> &amp; html[<span class="hljs-number">0.</span>.<span class="hljs-number">9</span>] &amp; <span class="hljs-string">&quot;&lt;/time&gt; &lt;a href=</span><span class="hljs-meta">\&quot;</span><span class="hljs-string">devlog/&quot;</span> &amp; html &amp; <span class="hljs-string">&quot;</span><span class="hljs-meta">\&quot;</span><span class="hljs-string">&gt;&quot;</span> &amp; title &amp; <span class="hljs-string">&quot;&lt;/a&gt;&lt;/li&gt;</span><span class="hljs-meta">\n</span><span class="hljs-string">&quot;</span>
+devlog.add <span class="hljs-string">&quot;&lt;/ul&gt;</span><span class="hljs-meta">\n</span><span class="hljs-string">&quot;</span>
+nbRawHtml: devlog
 
 <span class="hljs-keyword">var</span> catalog = <span class="hljs-string">&quot;&lt;h2&gt;Catalog&lt;/h2&gt;</span><span class="hljs-meta">\n</span><span class="hljs-string">&quot;</span>
 <span class="hljs-keyword">var</span> lastPlugin = <span class="hljs-string">&quot;&quot;</span>

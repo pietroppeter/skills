@@ -65,7 +65,11 @@ Keep editing it here and re-copy, or hand ownership to the project repo and say 
 ```sh
 sh docs/deps.sh          # fetch nimib and its deps at pinned commits into docs/deps (not committed)
 nim r docs/index.nim     # writes docs/index.html: a catalog read from every SKILL.md
-node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js docs/index.html
+nim r docs/devlog/<post>.nim  # each devlog post, e.g. nimib_theme.nim
+node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js docs/index.html docs/devlog/*.html
 ```
+
+The **devlog** (`docs/devlog/`) has one explainer post per skill: why each rule is there, with evidence.
+A post is a nimib file that sets `nb.doc.filename` to `YYYY-MM-DD-<slug>.html`; the index lists it automatically.
 
 GitHub Pages serves `docs/` from `main`.
