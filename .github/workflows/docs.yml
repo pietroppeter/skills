@@ -1,0 +1,33 @@
+# Build the nimib docs and deploy them to the gh-pages branch (same pattern as nimib's docs.yml).
+# Pages setting: Deploy from a branch -> gh-pages / (root).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  docs:
+    runs-on: ubuntu-24.04 # libpcre3 is not packaged in newer ubuntu
+    steps:
+      - uses: actions/checkout@v4
+      - name: apt install
+        run: sudo apt-get install -y libpcre3
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.4'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: build docs
+        run: sh docs/build.sh
+      - name: phone check
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          node plugins/nimib/skills/nimib-theme/scripts/phonecheck.js _site/index.html _site/devlog/*.html
+      - name: deploy on github pages
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _site
