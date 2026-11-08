@@ -28,7 +28,7 @@ If the page pins an older nimib, write code rules as `body pre > code` and `body
 - Code that is not Nim and not an `nbCode` block (a markdown fence tagged `python`, a raw `<pre>`) is highlighted only by highlight.js, so keep highlight.js on (inline it for artifacts), or highlight it at build time. Mark plain output blocks with `language-text` or `nb-output`.
 
 ## 4. Check before publishing
-The checks ship with this skill, in `scripts/` next to this file (copies of github.com/pietroppeter/claude-artifacts/tree/main/tools). Run the phone check on the built page (needs Playwright with Chromium):
+The checks ship with this skill, in `scripts/` next to this file. If they are not there (e.g. the skill was saved to a claude.ai account without them), fetch them from [the skills repo](https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts). Run the phone check on the built page (needs Playwright with Chromium):
 
 ```sh
 node <this skill's folder>/scripts/phonecheck.js path/to/page.html

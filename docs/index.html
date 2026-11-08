@@ -1566,7 +1566,7 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <li>Code that is not Nim and not an <code>nbCode</code> block (a markdown fence tagged <code>python</code>, a raw <code>&lt;pre&gt;</code>) is highlighted only by highlight.js, so keep highlight.js on (inline it for artifacts), or highlight it at build time. Mark plain output blocks with <code>language-text</code> or <code>nb-output</code>.</li>
 </ul>
 <h4>4. Check before publishing</h4>
-<p>The checks ship with this skill, in <code>scripts/</code> next to this file (copies of github.com/pietroppeter/claude-artifacts/tree/main/tools). Run the phone check on the built page (needs Playwright with Chromium):</p>
+<p>The checks ship with this skill, in <code>scripts/</code> next to this file. If they are not there (e.g. the skill was saved to a claude.ai account without them), fetch them from <a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">the skills repo</a>. Run the phone check on the built page (needs Playwright with Chromium):</p>
 <pre><code class="language-sh">node &lt;this skill's folder&gt;/scripts/phonecheck.js path/to/page.html
 </code></pre>
 <p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, and every code block is highlighted. Also look at a 390px-wide screenshot of one long code block.</p>
