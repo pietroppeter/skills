@@ -1553,6 +1553,7 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 </ul>
 <h3 class="plugin">plugin · phone-first</h3>
 <ul class="cards">
+<li class="card"><a class="name" href="#easy-review">easy-review</a> <span class="status draft">draft</span><p>Use whenever you hand work back to Pietro (a PR, a page, a release, a change he must check), so he can review and act on it from his phone in a tap or two.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/phone-first/skills/easy-review/SKILL.md">plugins/phone-first/skills/easy-review/SKILL.md</a></li>
 <li class="card"><a class="name" href="#publish-artifact">publish-artifact</a> <span class="status personal">personal</span><p>Use when you build an HTML page for Pietro (a nimib page, an explainer, docs), to publish it as a claude.ai artifact he can read on his phone, and to keep its link stable.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/phone-first/skills/publish-artifact/SKILL.md">plugins/phone-first/skills/publish-artifact/SKILL.md</a></li>
 </ul>
 <section class="skill" id="nimib-theme"><p class="kicker">nimib / nimib-theme</p>
@@ -1573,6 +1574,32 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 </code></pre>
 <p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, every code block is highlighted. Then look at a 390px-wide screenshot of one long code block.</p>
 <p>If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (phone-first plugin).</p>
+</section>
+<section class="skill" id="easy-review"><p class="kicker">phone-first / easy-review</p>
+<h3>Make every result easy to review from the phone</h3>
+<p>Assume Pietro is on his phone, always. He can tap links, look at pictures and press buttons; he cannot run commands, open local paths or read long diffs comfortably. Every reply that delivers work gives him what he needs to review it and act on it without a laptop.</p>
+<h4>Links, always clickable</h4>
+<ul>
+<li>A PR: link it. A pushed change to an open PR: link the PR again, not just &quot;pushed&quot;.</li>
+<li>Anything rendered (a page, a docs site, a nimib explainer): publish it as an artifact (publish-artifact skill) and link that. Until then, a rendered preview link, e.g. <code>https://raw.githack.com/&lt;owner&gt;/&lt;repo&gt;/&lt;branch&gt;/&lt;path&gt;.html</code>.</li>
+<li>A file: link it on GitHub (<code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/blob/&lt;branch&gt;/&lt;path&gt;</code>), never a bare local path.</li>
+<li>Settings he must change: the direct settings URL (e.g. <code>https://github.com/&lt;owner&gt;/&lt;repo&gt;/settings/pages</code>), with what to pick.</li>
+</ul>
+<h4>Releases: one tap to create</h4>
+<p>When a release is due, do not tell him to create it: give a prefilled link to GitHub's new-release form, with the new tag, title and notes filled in:</p>
+<pre><code class="language-text">https://github.com/&lt;owner&gt;/&lt;repo&gt;/releases/new?tag=v0.4.4&amp;target=main&amp;title=v0.4.4&amp;body=&lt;url-encoded notes&gt;
+</code></pre>
+<p>He opens it, checks, and presses <em>Publish release</em>. After it exists, link the release page.</p>
+<h4>Show, don't describe</h4>
+<ul>
+<li>A visual change: attach a phone-width (390px) screenshot, before and after when it fixes something.</li>
+<li>A rule or decision: one line of evidence (a check's output, a number), not a paragraph.</li>
+</ul>
+<h4>Keep it skimmable</h4>
+<ul>
+<li>Lead with the result and the one thing he needs to do, if any.</li>
+<li>One link per thing, named by what it is (&quot;PR #3&quot;, &quot;the docs page&quot;), not &quot;here&quot;.</li>
+</ul>
 </section>
 <section class="skill" id="publish-artifact"><p class="kicker">phone-first / publish-artifact</p>
 <h3>Publishing a page as a claude.ai artifact</h3>
