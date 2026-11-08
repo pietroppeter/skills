@@ -1,0 +1,33 @@
+# Builds every example and complete snippet the nimib plugin's skills teach,
+# against released nimib, nimibook and karax (plugins/nimib/harness/README.md).
+on:
+  push:
+    branches: [main]
+    paths: ['plugins/nimib/**', '.github/workflows/nimib-skills.yml']
+  pull_request:
+    paths: ['plugins/nimib/**', '.github/workflows/nimib-skills.yml']
+  workflow_dispatch:
+jobs:
+  snippets:
+    runs-on: ubuntu-24.04 # libpcre3 is not packaged in newer ubuntu
+    steps:
+      - uses: actions/checkout@v4
+      - name: apt install
+        run: sudo apt-get install -y libpcre3
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: 'stable'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      # from a neutral folder: inside a nimble project, nimble 0.26 skips the named package
+      - run: nimble -y install nimib
+        working-directory: ${{ runner.temp }}
+      - run: nimble -y install nimibook
+        working-directory: ${{ runner.temp }}
+      - run: nimble -y install karax
+        working-directory: ${{ runner.temp }}
+      - run: nimble path nimib nimibook karax
+      - name: install Playwright (browser checks of nbJs/karax pages)
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - run: python3 plugins/nimib/harness/check_snippets.py
