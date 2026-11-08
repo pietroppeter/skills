@@ -47,7 +47,17 @@ or, on Claude Code 2.1.275 or later, in one step:
 /plugin install nimib --marketplace pietroppeter/skills
 ```
 
-**One project repo, without copying.** Add to that repo's `.claude/settings.json`:
+**Every Claude cloud thread of a project (tested 2026-11-08).** Add to the cloud environment's setup script:
+
+```sh
+if command -v claude >/dev/null; then
+  claude plugin marketplace add pietroppeter/skills && claude plugin install nimib@pietroppeter-skills && claude plugin install phone-first@pietroppeter-skills || true
+fi
+```
+
+Each new thread then installs the latest `main`. A repo's `.claude/settings.json`
+(`extraKnownMarketplaces` + `enabledPlugins`) is **not** read by project threads, which start outside the repo;
+it does work for Claude Code opened inside the repo on a laptop:
 
 ```json
 {

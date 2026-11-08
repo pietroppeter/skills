@@ -57,8 +57,9 @@ nbText: """
 
 - **On the phone, everywhere:** ask Claude to post a save card from a skill here and tap *Save*.
   It becomes an account skill, so claude.ai chats and every cloud thread load it.
-- **In one project:** a PR copies the skill into that repo's `.claude/skills/`,
-  or turns on its plugin in the repo's `.claude/settings.json`.
+- **In every thread of a project:** the cloud environment's setup script installs the plugins
+  (`claude plugin marketplace add pietroppeter/skills`, then `claude plugin install …`), so each new thread gets the latest.
+- **In one repo:** a PR copies the skill into that repo's `.claude/skills/`.
 - **In Claude Code:** `/plugin marketplace add pietroppeter/skills`, then `/plugin install nimib@pietroppeter-skills`.
 
 Status: **draft** is being written, **personal** is in use from here or my account,
