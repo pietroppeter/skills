@@ -11,7 +11,7 @@
     {
       "name": "nimib",
       "source": "./plugins/nimib",
-      "description": "Skills for writing, theming and publishing nimib pages."
+      "description": "Skills for writing, theming, building and maintaining nimib pages and books."
     },
     {
       "name": "phone-first",

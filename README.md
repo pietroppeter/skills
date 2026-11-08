@@ -9,10 +9,13 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 
 | Plugin | Skill | Status | What it does |
 |---|---|---|---|
+| nimib | [nimib](plugins/nimib/skills/nimib/SKILL.md) | draft | Write, build and debug nimib 0.4 documents: blocks, config and paths, nbJs/karax, Markdown output; `nbcheck.py` builds a page and flags what renders wrong. |
+| nimib | [nimib-blocks](plugins/nimib/skills/nimib-blocks/SKILL.md) | draft | Write nimib pages with blocks instead of HTML: when to make a custom block, how, and where styles and colours go; `drift.nim` counts what drifted. |
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
+| nimib | [nimibook](plugins/nimib/skills/nimibook/SKILL.md) | draft | Create, build and publish nimibook books; `bookcheck.py` checks every chapter, the sidebar and prev/next links. |
+| nimib | [nimib-maintainer](plugins/nimib/skills/nimib-maintainer/SKILL.md) | draft | Maintain the nimib repos: releases, CI, README/docs sync, downstream checks, triage, the nimib-land move. |
 | phone-first | [publish-artifact](plugins/phone-first/skills/publish-artifact/SKILL.md) | personal | Publish any page we build as a claude.ai artifact: self-contained, phone check, republish to the same link. |
 | phone-first | [easy-review](plugins/phone-first/skills/easy-review/SKILL.md) | draft | Hand work back so it can be reviewed from the phone: PR and artifact links, release link with tag + notes to paste, phone-width screenshots. |
-| nimib | [nimib-blocks](plugins/nimib/skills/nimib-blocks/SKILL.md) | draft | Write nimib pages with blocks instead of HTML: when to make a custom block, how, and where styles and colours go; `drift.nim` counts what drifted. |
 
 Status is `draft` (being written), `personal` (in use from this repo or my account),
 or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).
@@ -25,6 +28,8 @@ plugins/<topic>/                      one plugin per topic (nimib, phone-first, 
   .claude-plugin/plugin.json
   skills/<skill>/SKILL.md             one folder per skill, exactly one level under skills/
   skills/<skill>/scripts/...          helper scripts the skill uses
+  skills/<skill>/evals/<case>/        test cases (prompt.md; case.yaml + graders/ where graded)
+  harness/                            plugin-wide test tools (nimib plugin: snippet check, graders)
 docs/                                 nimib sources of the docs site (index.nim -> index.html)
 ```
 
