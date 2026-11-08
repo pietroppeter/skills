@@ -1549,39 +1549,46 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <h2>Catalog</h2>
 <h3 class="plugin">plugin · nimib</h3>
 <ul class="cards">
-<li class="card"><a class="name" href="#nimib-theme">nimib-theme</a> <span class="status personal">personal</span><p>Use when writing or changing a nimib page theme or publishing a nimib page, so code blocks stay small, scroll inside their box and are highlighted.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-theme/SKILL.md">plugins/nimib/skills/nimib-theme/SKILL.md</a></li>
+<li class="card"><a class="name" href="#nimib-publish">nimib-publish</a> <span class="status personal">personal</span><p>Use when publishing a nimib page as a claude.ai artifact (or anywhere with a content security policy), so its styles and highlighting still load and Pietro can read it on his phone.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-publish/SKILL.md">plugins/nimib/skills/nimib-publish/SKILL.md</a></li>
+<li class="card"><a class="name" href="#nimib-theme">nimib-theme</a> <span class="status personal">personal</span><p>Use when writing or changing the theme (CSS) of a nimib page, so code blocks and outputs stay small, scroll inside their box and are highlighted, also on a phone.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-theme/SKILL.md">plugins/nimib/skills/nimib-theme/SKILL.md</a></li>
 </ul>
+<section class="skill" id="nimib-publish"><p class="kicker">nimib / nimib-publish</p>
+<h3>Publishing a nimib page as a claude.ai artifact</h3>
+<p>Pietro reads nimib pages on his phone, so every nimib page we build is also published as a claude.ai artifact.</p>
+<h4>1. Make the page self-contained</h4>
+<ul>
+<li>Call <code>nb.inlineAssets</code> after <code>nbInit</code> (needs nimib with #267). Artifacts block stylesheets from any CDN except Google Fonts, and scripts from <code>cdn.jsdelivr.net/gh/</code>. Without it there is no water.css, no highlight colours and no highlight.js.</li>
+<li>Google Fonts is fine.</li>
+<li>Remote images do not load: use data: URIs, or publish the images as files of the artifact.</li>
+<li>If the page has its own theme, follow the nimib-theme skill too.</li>
+</ul>
+<h4>2. Check</h4>
+<p>Run the phone check from the nimib-theme skill on the built page (<code>../nimib-theme/scripts/phonecheck.js</code> from this folder, or from <a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">the skills repo</a>). It must print only ✓.</p>
+<h4>3. Publish</h4>
+<ul>
+<li>Publish the built HTML as a claude.ai artifact and give Pietro the link, along with any PR.</li>
+<li>When the page changes, republish to the same artifact (same slug), so his link keeps working.</li>
+<li>A page made of several HTML files (an index and posts, say) goes up as one artifact with the same relative paths.</li>
+</ul>
+</section>
 <section class="skill" id="nimib-theme"><p class="kicker">nimib / nimib-theme</p>
 <h3>Theming a nimib page without breaking code blocks</h3>
-<p>Code blocks are the part of a themed nimib page that keeps breaking, mostly on phones. Follow these rules whenever you write or change a theme, then run the check before you publish.</p>
-<h4>1. Use a nimib that fixes the base (nimib PR #267 or later)</h4>
+<p>Code blocks and outputs are the part of a themed nimib page that breaks, mostly on phones. Why each rule is here, with screenshots: the devlog post <a href="https://pietroppeter.github.io/skills/devlog/2026-11-08-nimib-theme.html">&quot;nimib-theme: does each rule earn its place?&quot;</a>.</p>
+<h4>1. Build with a nimib that has #267</h4>
+<p>nimib PR #267 makes nimib's own style rules lose to any theme rule (they use <code>:where()</code>), makes <code>pre</code>, <code>pre &gt; code</code> and <code>.nb-output</code> scroll sideways, and highlights markdown fences tagged <code>nim</code> at build time.</p>
+<p>On an older nimib (0.4.3 or before), nimib's <code>pre &gt; code {font-size:1.2em}</code> comes after the theme and wins over a plain <code>pre code</code> rule (13px became 20.4px). There, write code rules as <code>body pre &gt; code</code> and <code>body pre.nb-output</code>, and put <code>overflow-x: auto</code> on both <code>pre</code> and <code>pre &gt; code</code>.</p>
+<h4>2. Theme rules</h4>
 <ul>
-<li>nimib's own style rules use <code>:where()</code>, so any theme rule overrides them, wherever the theme puts it.</li>
-<li><code>pre</code>, <code>pre &gt; code</code> and <code>.nb-output</code> scroll sideways, and <code>text-size-adjust: 100%</code> is set.</li>
-<li>Markdown code fences tagged <code>nim</code> in <code>nbText</code> are highlighted when the page is built.</li>
+<li>Code blocks and outputs: 12.5 to 13px, smaller than the body text.</li>
+<li>Style <code>pre.nb-output</code> too. Outputs have no <code>&lt;code&gt;</code> inside, so a <code>pre code</code> rule never reaches them (they stayed at 17px).</li>
+<li>If the theme replaces nimib's highlight CSS, it must colour the <code>hljs-*</code> classes (keyword, string, comment, number, type, built_in, literal, meta, title).</li>
 </ul>
-<p>If the page pins an older nimib, write code rules as <code>body pre &gt; code</code> and <code>body pre.nb-output</code>. Older nimib emits <code>pre &gt; code {font-size:1.2em}</code> after the theme, which beats a plain <code>pre code</code> rule and gave 20px code.</p>
-<h4>2. Pages published as claude.ai artifacts (or anywhere with a CSP)</h4>
-<ul>
-<li>Call <code>nb.inlineAssets</code> after <code>nbInit</code>. Artifacts block stylesheets from any CDN except Google Fonts, and block scripts from <code>cdn.jsdelivr.net/gh/</code>, so without it there is no water.css, no highlight colours and no highlight.js.</li>
-<li>Google Fonts is fine. Remote images do not load, so use data: URIs or ship the images as files of the artifact.</li>
-</ul>
-<h4>3. Theme rules for code</h4>
-<ul>
-<li>Code blocks and outputs are 12.5 to 13px, smaller than the body text.</li>
-<li>If you give <code>pre &gt; code</code> its own background or border, keep <code>overflow-x: auto</code> on it. If only <code>pre</code> scrolls, the box stops at the screen edge and the text runs on past it.</li>
-<li>Style <code>pre.nb-output</code> as well: it has no <code>&lt;code&gt;</code> inside.</li>
-<li>A theme that replaces the highlight CSS must still colour the <code>hljs-*</code> classes (keyword, string, comment, number, type, built_in, literal, meta, title).</li>
-<li>Code that is not Nim and not an <code>nbCode</code> block (a markdown fence tagged <code>python</code>, a raw <code>&lt;pre&gt;</code>) is highlighted only by highlight.js, so keep highlight.js on (inline it for artifacts), or highlight it at build time. Mark plain output blocks with <code>language-text</code> or <code>nb-output</code>.</li>
-</ul>
-<h4>4. Check before publishing</h4>
-<p>The checks ship with this skill, in <code>scripts/</code> next to this file. If they are not there (e.g. the skill was saved to a claude.ai account without them), fetch them from <a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">the skills repo</a>. Run the phone check on the built page (needs Playwright with Chromium):</p>
+<h4>3. Check</h4>
+<p>Run the phone check on the built page (needs Playwright with Chromium). It ships in <code>scripts/</code> next to this file; if it is missing, fetch it from <a href="https://github.com/pietroppeter/skills/tree/main/plugins/nimib/skills/nimib-theme/scripts">the skills repo</a>.</p>
 <pre><code class="language-sh">node &lt;this skill's folder&gt;/scripts/phonecheck.js path/to/page.html
 </code></pre>
-<p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, and every code block is highlighted. Also look at a 390px-wide screenshot of one long code block.</p>
-<p>For a page that is not built with nimib (or has raw <code>&lt;pre&gt;</code> blocks), <code>python3 &lt;this skill's folder&gt;/scripts/codeblocks.py path/to/page.html</code> highlights them at build time with Pygments and adds the scroll rules.</p>
-<h4>5. Publish</h4>
-<p>Publish the built HTML as a claude.ai artifact, and republish to the same slug when the page changes.</p>
+<p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, every code block is highlighted. Then look at a 390px-wide screenshot of one long code block.</p>
+<p>If the page will be published as a claude.ai artifact, also follow the nimib-publish skill.</p>
 </section>
 </main>
 <footer>

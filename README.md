@@ -9,7 +9,8 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 
 | Plugin | Skill | Status | What it does |
 |---|---|---|---|
-| nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme and publish nimib pages so code blocks stay small, scroll inside their box and are highlighted, checked at phone width. |
+| nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
+| nimib | [nimib-publish](plugins/nimib/skills/nimib-publish/SKILL.md) | personal | Publish a nimib page as a claude.ai artifact: inline assets, phone check, republish to the same link. |
 
 Status is `draft` (being written), `personal` (in use from this repo or my account),
 or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).

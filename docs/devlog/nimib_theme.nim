@@ -110,13 +110,17 @@ nbText: """
 phonecheck had one bug of its own: given a path that doesn't exist, it printed ✓.
 Fixed in the skill's copy of the script.
 
-## What I'd change
+## What changed
 
-- **Split it in two.** `nimib-theme` keeps rules 1, 3 and 4.
-  A new `nimib-publish` skill takes rule 2 and rule 5: inline the assets, check, publish as an artifact,
-  republish to the same link. Publishing is about your workflow, not about themes, and a page with
-  nimib's default theme still needs it.
-- **Trim rule 3** to the lines this demo proved, plus the size range.
-- **Rewrite rule 1** once #267 is in a nimib release: "needs nimib ≥ 0.4.4" and a one-line fallback.
+Pietro agreed to the split, so the skill is now two:
+
+- **nimib-theme**: build with nimib #267 (or the `body pre > code` fallback), the theme rules this demo proved
+  (12.5-13px, style `pre.nb-output`, colour `hljs-*` when replacing the highlight CSS), and the phone check.
+- **nimib-publish**: `nb.inlineAssets`, the phone check, publish as a claude.ai artifact and republish to the same link.
+  Publishing is about the workflow, not the theme: a page with nimib's default theme needs it too.
+
+Dropped: the rule about non-Nim code and highlight.js (never tested here), and the bundled `codeblocks.py`,
+which is for pages not built with nimib and stays in claude-artifacts.
+Once #267 is in a nimib release, rule 1 becomes "needs nimib ≥ 0.4.4".
 """
 nbSave
