@@ -12,6 +12,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
 | phone-first | [publish-artifact](plugins/phone-first/skills/publish-artifact/SKILL.md) | personal | Publish any page we build as a claude.ai artifact: self-contained, phone check, republish to the same link. |
 | phone-first | [easy-review](plugins/phone-first/skills/easy-review/SKILL.md) | draft | Hand work back so it can be reviewed from the phone: PR and artifact links, release link with tag + notes to paste, phone-width screenshots. |
+| nimib | [nimib-blocks](plugins/nimib/skills/nimib-blocks/SKILL.md) | draft | Write nimib pages with blocks instead of HTML: when to make a custom block, how, and where styles and colours go; `drift.nim` counts what drifted. |
 
 Status is `draft` (being written), `personal` (in use from this repo or my account),
 or `promoted: <repo>` (copied into a project repo's `.claude/skills/`; this copy stays the source of truth).
