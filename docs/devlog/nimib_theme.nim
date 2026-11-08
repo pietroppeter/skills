@@ -116,9 +116,9 @@ Pietro agreed to the split, so the skill is now two:
 
 - **nimib-theme**: build with nimib #267 (or the `body pre > code` fallback), the theme rules this demo proved
   (12.5-13px, style `pre.nb-output`, colour `hljs-*` when replacing the highlight CSS), and the phone check.
-- **publish-artifact**, in a new **workflow** plugin: make the page self-contained (`nb.inlineAssets` for nimib),
+- **publish-artifact**, in a new **phone-first** plugin: make the page self-contained (`nb.inlineAssets` for nimib),
   check it at phone width, publish as a claude.ai artifact and republish to the same link.
-  Publishing is about working with Claude, not about nimib: any page we build for the phone needs it.
+  Publishing is about working with Claude from the phone, not about nimib: any page we build needs it.
 
 Dropped: the rule about non-Nim code and highlight.js (never tested here), and the bundled `codeblocks.py`,
 which is for pages not built with nimib and stays in claude-artifacts.

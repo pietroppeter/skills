@@ -28,4 +28,4 @@ node <this skill's folder>/scripts/phonecheck.js path/to/page.html
 
 It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, every code block is highlighted. Then look at a 390px-wide screenshot of one long code block.
 
-If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (workflow plugin).
+If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (phone-first plugin).

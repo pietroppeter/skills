@@ -1551,9 +1551,9 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <ul class="cards">
 <li class="card"><a class="name" href="#nimib-theme">nimib-theme</a> <span class="status personal">personal</span><p>Use when writing or changing the theme (CSS) of a nimib page, so code blocks and outputs stay small, scroll inside their box and are highlighted, also on a phone.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/nimib/skills/nimib-theme/SKILL.md">plugins/nimib/skills/nimib-theme/SKILL.md</a></li>
 </ul>
-<h3 class="plugin">plugin · workflow</h3>
+<h3 class="plugin">plugin · phone-first</h3>
 <ul class="cards">
-<li class="card"><a class="name" href="#publish-artifact">publish-artifact</a> <span class="status personal">personal</span><p>Use when you build an HTML page for Pietro (a nimib page, an explainer, docs), to publish it as a claude.ai artifact he can read on his phone, and to keep its link stable.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/workflow/skills/publish-artifact/SKILL.md">plugins/workflow/skills/publish-artifact/SKILL.md</a></li>
+<li class="card"><a class="name" href="#publish-artifact">publish-artifact</a> <span class="status personal">personal</span><p>Use when you build an HTML page for Pietro (a nimib page, an explainer, docs), to publish it as a claude.ai artifact he can read on his phone, and to keep its link stable.</p><a class="src" href="https://github.com/pietroppeter/skills/blob/main/plugins/phone-first/skills/publish-artifact/SKILL.md">plugins/phone-first/skills/publish-artifact/SKILL.md</a></li>
 </ul>
 <section class="skill" id="nimib-theme"><p class="kicker">nimib / nimib-theme</p>
 <h3>Theming a nimib page without breaking code blocks</h3>
@@ -1572,9 +1572,9 @@ or turns on its plugin in the repo's <code>.claude/settings.json</code>.</li>
 <pre><code class="language-sh">node &lt;this skill's folder&gt;/scripts/phonecheck.js path/to/page.html
 </code></pre>
 <p>It must print only ✓: the page is not wider than 390px, code is 11 to 14px, every block scrolls inside its box, every code block is highlighted. Then look at a 390px-wide screenshot of one long code block.</p>
-<p>If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (workflow plugin).</p>
+<p>If the page will be published as a claude.ai artifact, also follow the publish-artifact skill (phone-first plugin).</p>
 </section>
-<section class="skill" id="publish-artifact"><p class="kicker">workflow / publish-artifact</p>
+<section class="skill" id="publish-artifact"><p class="kicker">phone-first / publish-artifact</p>
 <h3>Publishing a page as a claude.ai artifact</h3>
 <p>Pietro reads what we build on his phone, so every HTML page we make for him (nimib pages, explainers, docs sites) is also published as a claude.ai artifact, even when it also lives in a repo or on GitHub Pages.</p>
 <h4>1. Make the page self-contained</h4>

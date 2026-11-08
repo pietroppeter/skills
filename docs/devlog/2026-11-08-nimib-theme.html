@@ -1633,9 +1633,9 @@ Fixed in the skill's copy of the script.</p>
 <ul>
 <li><strong>nimib-theme</strong>: build with nimib #267 (or the <code>body pre &gt; code</code> fallback), the theme rules this demo proved
 (12.5-13px, style <code>pre.nb-output</code>, colour <code>hljs-*</code> when replacing the highlight CSS), and the phone check.</li>
-<li><strong>publish-artifact</strong>, in a new <strong>workflow</strong> plugin: make the page self-contained (<code>nb.inlineAssets</code> for nimib),
+<li><strong>publish-artifact</strong>, in a new <strong>phone-first</strong> plugin: make the page self-contained (<code>nb.inlineAssets</code> for nimib),
 check it at phone width, publish as a claude.ai artifact and republish to the same link.
-Publishing is about working with Claude, not about nimib: any page we build for the phone needs it.</li>
+Publishing is about working with Claude from the phone, not about nimib: any page we build needs it.</li>
 </ul>
 <p>Dropped: the rule about non-Nim code and highlight.js (never tested here), and the bundled <code>codeblocks.py</code>,
 which is for pages not built with nimib and stays in claude-artifacts.
@@ -1767,9 +1767,9 @@ Pietro agreed to the split, so the skill is now two:
 
 - **nimib-theme**: build with nimib #267 (or the `body pre &gt; code` fallback), the theme rules this demo proved
   (12.5-13px, style `pre.nb-output`, colour `hljs-*` when replacing the highlight CSS), and the phone check.
-- **publish-artifact**, in a new **workflow** plugin: make the page self-contained (`nb.inlineAssets` for nimib),
+- **publish-artifact**, in a new **phone-first** plugin: make the page self-contained (`nb.inlineAssets` for nimib),
   check it at phone width, publish as a claude.ai artifact and republish to the same link.
-  Publishing is about working with Claude, not about nimib: any page we build for the phone needs it.
+  Publishing is about working with Claude from the phone, not about nimib: any page we build needs it.
 
 Dropped: the rule about non-Nim code and highlight.js (never tested here), and the bundled `codeblocks.py`,
 which is for pages not built with nimib and stays in claude-artifacts.

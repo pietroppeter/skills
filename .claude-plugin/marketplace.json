@@ -14,9 +14,9 @@
       "description": "Skills for writing, theming and publishing nimib pages."
     },
     {
-      "name": "workflow",
-      "source": "./plugins/workflow",
-      "description": "How Pietro works with Claude: publishing pages as claude.ai artifacts."
+      "name": "phone-first",
+      "source": "./plugins/phone-first",
+      "description": "Pietro works with Claude from his phone: assume it. Publishing pages as claude.ai artifacts he can read there."
     }
   ]
 }
