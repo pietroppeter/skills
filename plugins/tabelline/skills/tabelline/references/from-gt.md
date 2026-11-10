@@ -35,7 +35,7 @@ Say in your reply which of these the table needed. Never drop one silently.
 
 | gt / GT | Planned | Instead, today |
 |---|---|---|
-| `summary_rows()`, `grand_summary_rows()` | 0.2 | Compute the totals in Nim and add them as rows of the data (a `"Total"` row); mark it with `tabStyle style.text(weight = "bold") & style.borders({sTop}), loc.body(rows = where(it["name"] == "Total"))`, and the stub with `loc.stub(...)`. In a grouped table give the Total row a group of its own (`"Total"`, last): a row with no group is shown first, above every group, and 0.1.0 also repeats it in the group of the row above it (a bug). |
+| `summary_rows()`, `grand_summary_rows()` | 0.2 | Compute the totals in Nim and add them as rows of the data (a `"Total"` row); mark it with `tabStyle style.text(weight = "bold") & style.borders({sTop}), loc.body(rows = where(it["name"] == "Total"))`, and the stub with `loc.stub(...)`. In a grouped table give the Total row a group of its own (`"Total"`, last): a row with no group is shown first, above every group, and 0.1.0 also repeats it in the group of the row above it (a bug, fixed on main for 0.2). |
 | `cols_merge()`, `cols_merge_uncert()`, `cols_merge_range()`, `cols_merge_n_pct()` | 0.2 | Build the merged text column in the data (`&"{n} ({pct:.1f}%)"`) and hide or leave out the sources. |
 | `rows_add()`, `rows_hide()` | 0.2 | Add or filter the rows of the data before `tabella`. |
 | `cols_add()` | 0.2 | `data.addColumn(name, toValues(xs))` before `tabella`. |

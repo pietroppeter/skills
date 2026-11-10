@@ -213,7 +213,7 @@ Read [references/from-gt.md](references/from-gt.md) before porting. The rules th
 - In a `tabella(...): body`, *every* call statement is read as a verb on the table, except
   `echo`, `discard`, `doAssert`, `assert`: call other procs outside the body, or in a `let`.
 - Two spanners of one level must not overlap (`ValueError`); put the higher one at `level = 2`.
-- In a grouped table, give every row a group. A row whose `groupnameCol` is missing is shown first, above the groups, and tabelline 0.1.0 also repeats it inside the group of the row above it in the data (a bug).
+- In a grouped table, give every row a group. A row whose `groupnameCol` is missing is shown first, above the groups, and tabelline 0.1.0 also repeats it inside the group of the row above it in the data (a bug, fixed on main for 0.2).
 - Footnote marks are numbered in reading order of their places, not in the order you added them.
 - `echo` does not show styles and colours: check the HTML for those.
 
