@@ -17,6 +17,11 @@
       "name": "phone-first",
       "source": "./plugins/phone-first",
       "description": "Pietro works with Claude from his phone: assume it. Publishing pages as claude.ai artifacts he can read there."
+    },
+    {
+      "name": "tabelline",
+      "source": "./plugins/tabelline",
+      "description": "Skills for making display tables in Nim with tabelline, after gt and Great Tables."
     }
   ]
 }

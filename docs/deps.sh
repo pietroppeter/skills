@@ -1,5 +1,5 @@
 #!/bin/sh
-# Fetches nimib and its dependencies at pinned commits into
+# Fetches nimib, its dependencies and tabelline (for the tables of the devlog) at pinned commits into
 # $SKILLS_DOCS_DEPS (default ./deps, not committed); config.nims puts them on the path.
 set -e
 here=$(cd "$(dirname "$0")" && pwd)
@@ -18,6 +18,7 @@ fusion nim-lang/fusion 562467452b32cb7a97410ea177f083e6d8405734
 markdown soasme/nim-markdown 995405b78fb49b7658b7f0d94efe1b52f86c0a85
 parsetoml NimParsers/parsetoml d297f5a81be2472905d367aa675dcbbca6e7a5d2
 jsony treeform/jsony ce1ea84458c721947bd8e86ec065eeefab2656f1
+tabelline pietroppeter/tabelline 78619c9f967f2817f9a17ffcab5ba2d9b2d7cc18
 DEPS
 
 exit 0

@@ -1,0 +1,9 @@
+# quarterly sales, Q3 2026
+region,store,revenue,margin
+North,Milano Centro,184250.5,0.182
+North,Torino Lingotto,96400,0.121
+North,Bergamo,58210.75,
+Centre,Roma Termini,201300,0.204
+Centre,Firenze,77825.2,0.093
+South,Napoli,88900,0.071
+South,Bari,45120.4,0.158
