@@ -1,0 +1,35 @@
+# Builds and runs every example and snippet the tabelline plugin's skills teach
+# (plugins/tabelline/harness/README.md): against the release they target, and against
+# tabelline's main so a change upstream shows up early (that job may fail without blocking).
+on:
+  push:
+    branches: [main]
+    paths: ['plugins/tabelline/**', '.github/workflows/tabelline-skills.yml']
+  pull_request:
+    paths: ['plugins/tabelline/**', '.github/workflows/tabelline-skills.yml']
+  schedule:
+    - cron: '17 5 * * 1'   # weekly, to catch tabelline's main moving on
+  workflow_dispatch:
+jobs:
+  snippets:
+    runs-on: ubuntu-24.04 # libpcre3 is not packaged in newer ubuntu
+    strategy:
+      fail-fast: false
+      matrix:
+        tabelline: ['#v0.1.0', '#head']
+    continue-on-error: ${{ matrix.tabelline == '#head' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: apt install
+        run: sudo apt-get install -y libpcre3
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: '2.2.4'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      # from a neutral folder: inside a nimble project, nimble 0.26 skips the named package
+      - run: nimble -y install "https://github.com/pietroppeter/tabelline@${{ matrix.tabelline }}"
+        working-directory: ${{ runner.temp }}
+      - run: nimble -y install nimib
+        working-directory: ${{ runner.temp }}
+      - run: nimble path tabelline nimib
+      - run: nim r --hints:off plugins/tabelline/harness/check_snippets.nim

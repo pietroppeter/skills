@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: tabelline-csv-sales-report
+expected_outcome: |
+  sales.nim reads sales.csv, groups rows by region, shows revenue in euros and margin as a
+  percentage coloured from red to green, with a footnote on the margin label, and writes a
+  standalone sales.html.

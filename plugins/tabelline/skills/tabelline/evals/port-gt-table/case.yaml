@@ -1,0 +1,7 @@
+schema_version: "1.1"
+name: tabelline-port-gt-table
+expected_outcome: |
+  port.nim rebuilds the gt table of table.R with tabelline: header, groups, stub, formats, labels,
+  spanner, a conditional fill and the source note; it prints the table and writes port.html. The
+  reply names the gt features tabelline 0.1 does not have (cols_merge, grand_summary_rows) and
+  says what was done instead.

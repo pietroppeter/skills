@@ -14,6 +14,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
 | nimib | [nimibook](plugins/nimib/skills/nimibook/SKILL.md) | draft | Create, build and publish nimibook books; `bookcheck.py` checks every chapter, the sidebar and prev/next links. |
 | nimib | [nimib-maintainer](plugins/nimib/skills/nimib-maintainer/SKILL.md) | draft | Maintain the nimib repos: releases, CI, README/docs sync, downstream checks, triage, the nimib-land move. |
+| tabelline | [tabelline](plugins/tabelline/skills/tabelline/SKILL.md) | draft | Make display tables in Nim with tabelline 0.1: data in, parts, formats, styles, `nbTable`, and a map from gt and Great Tables (what is missing and what to write instead). |
 | phone-first | [publish-artifact](plugins/phone-first/skills/publish-artifact/SKILL.md) | personal | Publish any page we build as a claude.ai artifact: self-contained, phone check, republish to the same link. |
 | phone-first | [easy-review](plugins/phone-first/skills/easy-review/SKILL.md) | draft | Hand work back so it can be reviewed from the phone: PR and artifact links, release link with tag + notes to paste, phone-width screenshots. |
 
@@ -29,7 +30,7 @@ plugins/<topic>/                      one plugin per topic (nimib, phone-first, 
   skills/<skill>/SKILL.md             one folder per skill, exactly one level under skills/
   skills/<skill>/scripts/...          helper scripts the skill uses
   skills/<skill>/evals/<case>/        test cases (prompt.md; case.yaml + graders/ where graded)
-  harness/                            plugin-wide test tools (nimib plugin: snippet check, graders)
+  harness/                            plugin-wide test tools (snippet checks, graders)
 docs/                                 nimib sources of the docs site (index.nim -> index.html)
 ```
 
@@ -57,7 +58,7 @@ or, on Claude Code 2.1.275 or later, in one step:
 
 ```sh
 if command -v claude >/dev/null; then
-  claude plugin marketplace add pietroppeter/skills && claude plugin install nimib@pietroppeter-skills && claude plugin install phone-first@pietroppeter-skills || true
+  claude plugin marketplace add pietroppeter/skills && claude plugin install nimib@pietroppeter-skills && claude plugin install phone-first@pietroppeter-skills && claude plugin install tabelline@pietroppeter-skills || true
 fi
 ```
 
@@ -70,7 +71,7 @@ it does work for Claude Code opened inside the repo on a laptop:
   "extraKnownMarketplaces": {
     "pietroppeter-skills": { "source": { "source": "github", "repo": "pietroppeter/skills" } }
   },
-  "enabledPlugins": { "nimib@pietroppeter-skills": true, "phone-first@pietroppeter-skills": true }
+  "enabledPlugins": { "nimib@pietroppeter-skills": true, "phone-first@pietroppeter-skills": true, "tabelline@pietroppeter-skills": true }
 }
 ```
 
