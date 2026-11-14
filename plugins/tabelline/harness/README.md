@@ -5,7 +5,7 @@ Same two layers as the nimib plugin ([its harness](../../nimib/harness/README.md
 ## 1. Everything the skills teach runs (`check_snippets.nim`, in CI)
 
 ```sh
-nimble install -y "https://github.com/pietroppeter/tabelline@#v0.1.0"   # from a folder that is not a nimble project
+nimble install -y "https://github.com/pietroppeter/tabelline@#v0.2.0"   # from a folder that is not a nimble project
 nimble install -y nimib
 nim r plugins/tabelline/harness/check_snippets.nim
 ```
@@ -13,7 +13,7 @@ nim r plugins/tabelline/harness/check_snippets.nim
 - every ```` ```nim ```` fence in a skill's Markdown that imports tabelline is compiled and run;
   when the next fence is ```` ```text ````, the output must be that text, so the tables shown in
   the skill are the tables tabelline draws; a fence with `nbSave` must write its page;
-- every `skills/*/examples/*.nim` runs in a copy of its folder (an example that mentions
+- every `skills/*/examples/*.nim`, when there are some, runs in a copy of its folder (an example that mentions
   `mdOutput` runs again with `-d:mdOutput` and must write its `.md`).
 
 A fence opts out with `# snippet: skip`. CI (`.github/workflows/tabelline-skills.yml`) runs it
@@ -31,4 +31,4 @@ python3 plugins/nimib/harness/run_graders.py plugins/tabelline/skills/tabelline/
 
 Where `claude plugin eval` cannot run (cloud containers), run each case with a subagent in an
 empty folder, once with the skill and once without, and grade both folders. Results are in the
-devlog post [tabelline skill](https://pietroppeter.github.io/skills/devlog/2026-11-10-tabelline-skill.html).
+devlog posts [tabelline skill](https://pietroppeter.github.io/skills/devlog/2026-11-10-tabelline-skill.html) (0.1) and [for 0.2](https://pietroppeter.github.io/skills/devlog/2026-11-14-tabelline-skill-0-2.html).

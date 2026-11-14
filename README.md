@@ -14,7 +14,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
 | nimib | [nimibook](plugins/nimib/skills/nimibook/SKILL.md) | draft | Create, build and publish nimibook books; `bookcheck.py` checks every chapter, the sidebar and prev/next links. |
 | nimib | [nimib-maintainer](plugins/nimib/skills/nimib-maintainer/SKILL.md) | draft | Maintain the nimib repos: releases, CI, README/docs sync, downstream checks, triage, the nimib-land move. |
-| tabelline | [tabelline](plugins/tabelline/skills/tabelline/SKILL.md) | draft | Make display tables in Nim with tabelline 0.1: data in, parts, formats, styles, `nbTable`, and a map from gt and Great Tables (what is missing and what to write instead). |
+| tabelline | [tabelline](plugins/tabelline/skills/tabelline/SKILL.md) | draft | Make display tables in Nim with tabelline 0.2: where its docs for agents are (llms.txt, api.md), how to work (`echo t` first), and the traps agents met. |
 | phone-first | [publish-artifact](plugins/phone-first/skills/publish-artifact/SKILL.md) | personal | Publish any page we build as a claude.ai artifact: self-contained, phone check, republish to the same link. |
 | phone-first | [easy-review](plugins/phone-first/skills/easy-review/SKILL.md) | draft | Hand work back so it can be reviewed from the phone: PR and artifact links, release link with tag + notes to paste, phone-width screenshots. |
 

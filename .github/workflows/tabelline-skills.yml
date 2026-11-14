@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tabelline: ['#v0.1.0', '#head']
+        tabelline: ['#v0.2.0', '#head']
     continue-on-error: ${{ matrix.tabelline == '#head' }}
     steps:
       - uses: actions/checkout@v4
