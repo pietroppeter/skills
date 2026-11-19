@@ -3,7 +3,7 @@
 
 usage: python3 harness/check_snippets.py [--keep] [--verbose]
 
-1. Every file in skills/*/examples/*.nim is built with nimib's nbcheck.py
+1. Every file in skills/*/examples/*.nim is built with nimib's nbcheck.nim
    (compile + run + inspect the html). Pages with nbJs/karax are also opened in
    headless Chromium (when node + playwright are available) to catch JS errors.
 2. Every ```nim fence in skills/**/*.md that is a complete document
@@ -27,7 +27,7 @@ import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS = os.path.join(ROOT, "skills")
-NBCHECK = os.path.join(SKILLS, "nimib", "scripts", "nbcheck.py")
+NBCHECK = os.path.join(SKILLS, "nimib", "scripts", "nbcheck.nim")
 BROWSER = os.path.join(SKILLS, "nimib", "scripts", "browser_check.mjs")
 BOOKCHECK = os.path.join(SKILLS, "nimibook", "scripts", "bookcheck.py")
 VERBOSE = "--verbose" in sys.argv
@@ -56,7 +56,7 @@ def run(cmd, cwd):
 
 def check_doc(path, results, label, browser):
     cwd = os.path.dirname(path)
-    code, out = run([sys.executable, NBCHECK, os.path.basename(path)], cwd)
+    code, out = run(["nim", "r", "--hints:off", NBCHECK, os.path.basename(path)], cwd)
     ok = code == 0
     detail = out.strip().splitlines()
     if ok and browser and re.search(r"nbJs|nbKaraxCode|nbHappyxCode", open(path).read()):

@@ -1,7 +1,7 @@
 {
   "name": "nimib",
   "description": "Skills for writing, theming, building and maintaining nimib pages and books (github.com/pietroppeter/nimib).",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": { "name": "Pietro Peterlongo", "url": "https://github.com/pietroppeter" },
   "homepage": "https://github.com/pietroppeter/skills",
   "license": "MIT"

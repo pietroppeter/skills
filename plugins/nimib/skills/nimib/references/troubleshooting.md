@@ -2,7 +2,7 @@
 
 Read the **first** `Error:` line of the compiler output; the long chain of
 `template/generic instantiation of nbCode from here` lines below it only says
-the error happened inside a block. `python3 scripts/nbcheck.py doc.nim`
+the error happened inside a block. `nim r --hints:off scripts/nbcheck.nim doc.nim`
 prints the first error for you.
 
 | Symptom | Cause and fix |
@@ -34,5 +34,5 @@ prints the first error for you.
 | Comments missing from shown code | compiled with `-d:nimibCodeFromAst`; drop it. |
 
 When a document compiles but something looks off, open the html (or run
-`nbcheck.py`, and `node scripts/browser_check.mjs page.html` for nbJs/karax
+`nbcheck.nim`, and `node scripts/browser_check.mjs page.html` for nbJs/karax
 pages to see browser console errors and click through widgets).

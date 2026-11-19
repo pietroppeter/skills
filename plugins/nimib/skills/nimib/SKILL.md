@@ -49,7 +49,7 @@ are the ground truth.
    This compiles, runs, and writes `doc.html` next to the source (when there is
    no `nimib.toml`; see "Where the HTML goes").
 4. **Verify the output, don't assume it**: run
-   `python3 <this-skill>/scripts/nbcheck.py path/to/doc.nim`. It builds the
+   `nim r --hints:off <this-skill>/scripts/nbcheck.nim path/to/doc.nim`. It builds the
    document, finds the HTML, and reports blocks, outputs and common rendering
    mistakes (markdown that became a code block, raw `**`/`#` left in text, empty
    outputs, the default title, missing local images). Fix what it flags and
