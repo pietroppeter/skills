@@ -156,7 +156,7 @@ Don't stop at "build printed no error":
    all TOC titles, has prev/next links where expected, and reports chapters
    whose content area is empty and `.log` files left by failed builds.
 3. For a chapter with code, open its html and check that the outputs are there
-   (or run the nimib skill's `nbcheck.py --html docs/chapter.html`).
+   (or run the nimib skill's `nbcheck.nim --html docs/chapter.html`).
 
 ## Publishing (GitHub Pages)
 

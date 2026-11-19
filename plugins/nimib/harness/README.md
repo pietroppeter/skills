@@ -6,7 +6,7 @@ today. Two layers keep them honest. Why, and the first results: the devlog post
 
 ## 1. Everything the skills teach is built (`check_snippets.py`, run in CI)
 
-- every `skills/*/examples/*.nim` is built and checked with `skills/nimib/scripts/nbcheck.py`;
+- every `skills/*/examples/*.nim` is built and checked with `skills/nimib/scripts/nbcheck.nim`;
   pages with nbJs/karax are also opened in headless Chromium (`browser_check.mjs`);
 - every complete nimib document in a ```` ```nim ```` fence of any skill markdown (an
   `import ... nimib` line and a top-level `nbSave`) is extracted and built;

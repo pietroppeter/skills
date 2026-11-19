@@ -36,7 +36,7 @@ nbText: """
 ## Test 1: everything the skills teach is built
 
 `plugins/nimib/harness/check_snippets.py` builds every example and every complete nimib
-document or book found in a skill's code fences, then checks the output: `nbcheck.py` for pages
+document or book found in a skill's code fences, then checks the output: `nbcheck.nim` for pages
 (title, outputs, markdown that became a code block, missing images), headless Chromium for
 nbJs and karax widgets, `bookcheck.py` for books (every chapter, sidebar, prev/next links).
 
@@ -94,6 +94,15 @@ points to nimib-blocks for the how-to. The nimib skill now says that nimib-theme
 unreleased nimib (#267) and what to do on 0.4.3, and its verify step names `phonecheck.js` and
 `drift.nim` next to `nbcheck.py`. All the skills now name the modules `style.nim` and `blocks.nim`, in English, as their
 examples do.
+
+## nbcheck in Nim (19 November 2026)
+
+`nbcheck` was a Python script. A skill for nimib can count on Nim being there, not on Python,
+so it is now `nbcheck.nim`, standard library only, run as
+`nim r --hints:off scripts/nbcheck.nim doc.nim` like `drift.nim`. The checks and the report are
+the same: on the six examples, and on pages written to trip every warning and to fail the build,
+the Nim version prints exactly what the Python one printed, in text and in JSON, with the same
+exit codes. The harness now calls it the same way.
 
 ## How to run the tests
 

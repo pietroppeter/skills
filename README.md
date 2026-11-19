@@ -9,7 +9,7 @@ Docs (built with [nimib](https://github.com/pietroppeter/nimib)): https://pietro
 
 | Plugin | Skill | Status | What it does |
 |---|---|---|---|
-| nimib | [nimib](plugins/nimib/skills/nimib/SKILL.md) | draft | Write, build and debug nimib 0.4 documents: blocks, config and paths, nbJs/karax, Markdown output; `nbcheck.py` builds a page and flags what renders wrong. |
+| nimib | [nimib](plugins/nimib/skills/nimib/SKILL.md) | draft | Write, build and debug nimib 0.4 documents: blocks, config and paths, nbJs/karax, Markdown output; `nbcheck.nim` builds a page and flags what renders wrong. |
 | nimib | [nimib-blocks](plugins/nimib/skills/nimib-blocks/SKILL.md) | draft | Write nimib pages with blocks instead of HTML: when to make a custom block, how, and where styles and colours go; `drift.nim` counts what drifted. |
 | nimib | [nimib-theme](plugins/nimib/skills/nimib-theme/SKILL.md) | personal | Theme a nimib page so code blocks and outputs stay small, scroll inside their box and are highlighted, checked at phone width. |
 | nimib | [nimibook](plugins/nimib/skills/nimibook/SKILL.md) | draft | Create, build and publish nimibook books; `bookcheck.py` checks every chapter, the sidebar and prev/next links. |
